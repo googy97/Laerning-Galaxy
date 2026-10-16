@@ -1,3266 +1,693 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080b20">
-  <title>مجرة التعلّم 🪐</title>
-
-  <!-- ========================================
-       القسم الأول: التصميم والألوان
-  ========================================= -->
-  <style>
-    :root {
-      --bg: #080b20;
-      --panel: #121936;
-      --panel2: #1b254a;
-      --text: #f4f6ff;
-      --muted: #aab5d8;
-      --line: #303b68;
-      --purple: #9380ff;
-      --blue: #61dfff;
-      --green: #55d6a0;
-      --red: #ff718a;
-      --shadow: 0 12px 35px #0003;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: var(--bg);
-      color: var(--text);
-      font-family: system-ui, Tahoma, Arial, sans-serif;
-    }
-
-    body.light {
-      --bg: #edf4ff;
-      --panel: #ffffff;
-      --panel2: #f1f5ff;
-      --text: #192344;
-      --muted: #64708c;
-      --line: #d7e0f3;
-      --purple: #7057df;
-      --blue: #078dbb;
-      --shadow: 0 12px 30px #18234412;
-    }
-
-    button,
-    input,
-    select,
-    textarea {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--panel2);
-      color: var(--text);
-    }
-
-    textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-
-    button:disabled {
-      opacity: .6;
-      cursor: wait;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .muted {
-      color: var(--muted);
-    }
-
-    .small {
-      font-size: .86rem;
-    }
-
-    .center {
-      text-align: center;
-    }
-
-    .btn {
-      border: 0;
-      border-radius: 12px;
-      padding: 11px 15px;
-      background: var(--purple);
-      color: white;
-      font-weight: 750;
-    }
-
-    .btn.secondary {
-      background: var(--panel2);
-      border: 1px solid var(--line);
-      color: var(--text);
-    }
-
-    .btn.danger {
-      background: #a63858;
-      color: white;
-    }
-
-    .btn.full {
-      width: 100%;
-    }
-
-    .row {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      flex-wrap: wrap;
-    }
-
-    .between {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .three {
-      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
-    }
-
-    .card {
-      padding: 16px;
-      margin: 10px 0;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .hero {
-      padding: 24px;
-      border-radius: 24px;
-      border: 1px solid var(--line);
-      background:
-        radial-gradient(circle at 10% 10%, #8876ff33, transparent 45%),
-        var(--panel);
-    }
-
-    h1 {
-      font-size: 1.65rem;
-      margin: 8px 0 14px;
-    }
-
-    h2 {
-      font-size: 1.25rem;
-    }
-
-    h3 {
-      font-size: 1.05rem;
-    }
-
-    .field {
-      display: grid;
-      gap: 7px;
-      margin: 14px 0;
-    }
-
-    .logo {
-      font-size: 2rem;
-      font-weight: 950;
-      text-align: center;
-    }
-
-    .logo span {
-      color: var(--blue);
-    }
-
-    .planetmark {
-      font-size: 3.5rem;
-      text-align: center;
-    }
-
-    .stars {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: .45;
-      background-image:
-        radial-gradient(2px 2px at 20px 30px, #fff 99%, transparent),
-        radial-gradient(1px 1px at 90px 70px, #9ae7ff 99%, transparent),
-        radial-gradient(1px 1px at 150px 120px, #fff 99%, transparent);
-      background-size: 210px 160px;
-    }
-
-    /* تسجيل الدخول */
-
-    .auth {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 18px;
-    }
-
-    .authbox {
-      width: min(460px, 100%);
-      padding: 25px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .tabs,
-    .subnav {
-      display: flex;
-      gap: 8px;
-      margin: 15px 0;
-      overflow-x: auto;
-    }
-
-    .tabs button,
-    .subnav button {
-      flex: 1;
-      white-space: nowrap;
-      padding: 10px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--panel2);
-      color: var(--muted);
-    }
-
-    .tabs button.active,
-    .subnav button.active {
-      background: var(--purple);
-      color: white;
-    }
-
-    /* واجهة التطبيق */
-
-    .top {
-      position: sticky;
-      top: 0;
-      z-index: 5;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      padding: 12px 16px;
-      background: var(--panel);
-      border-bottom: 1px solid var(--line);
-    }
-
-    main {
-      max-width: 1050px;
-      margin: auto;
-      padding: 18px 14px 110px;
-    }
-
-    .coin,
-    .streak {
-      padding: 9px 12px;
-      border: 1px solid var(--line);
-      border-radius: 30px;
-      background: var(--panel2);
-      color: var(--text);
-    }
-
-    .progress {
-      height: 9px;
-      overflow: hidden;
-      border-radius: 10px;
-      background: var(--line);
-    }
-
-    .progress span {
-      display: block;
-      height: 100%;
-      background: linear-gradient(90deg, var(--purple), var(--blue));
-      transition: width .3s;
-    }
-
-    .planet {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 205px;
-      text-align: center;
-      gap: 12px;
-    }
-
-    .planet-art {
-      font-size: 3.7rem;
-    }
-
-    .lesson {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      padding: 13px;
-      margin: 9px 0;
-      background: var(--panel2);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-    }
-
-    .grow {
-      flex: 1;
-      min-width: 130px;
-    }
-
-    .choicegrid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 9px;
-    }
-
-    .choice {
-      padding: 14px;
-      border-radius: 13px;
-      border: 1px solid var(--line);
-      background: var(--panel2);
-      color: var(--text);
-    }
-
-    /* القائمة السفلية */
-
-    .nav {
-      position: fixed;
-      z-index: 10;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      display: flex;
-      justify-content: center;
-      gap: 3px;
-      padding: 8px 4px calc(8px + env(safe-area-inset-bottom));
-      background: var(--panel);
-      border-top: 1px solid var(--line);
-    }
-
-    .nav button {
-      flex: 1;
-      max-width: 150px;
-      padding: 7px 2px;
-      border: 0;
-      border-radius: 12px;
-      background: transparent;
-      color: var(--muted);
-      font-size: .72rem;
-    }
-
-    .nav button.active {
-      background: var(--panel2);
-      color: var(--blue);
-    }
-
-    .nav b {
-      display: block;
-      font-size: 1.25rem;
-    }
-
-    /* النوافذ والتنبيهات */
-
-    .modalbg {
-      position: fixed;
-      inset: 0;
-      z-index: 30;
-      display: grid;
-      place-items: center;
-      padding: 15px;
-      background: #0009;
-    }
-
-    .modal {
-      width: min(540px, 100%);
-      max-height: 88vh;
-      overflow: auto;
-      padding: 20px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-    }
-
-    .toast {
-      position: fixed;
-      z-index: 50;
-      top: 72px;
-      left: 50%;
-      width: max-content;
-      max-width: 90%;
-      transform: translateX(-50%);
-      padding: 12px 18px;
-      border: 1px solid var(--purple);
-      border-radius: 12px;
-      background: var(--panel);
-      box-shadow: var(--shadow);
-    }
-
-    .event {
-      padding: 12px;
-      margin: 8px 0;
-      border-radius: 12px;
-      background: var(--panel2);
-    }
-
-    .lettergrid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(55px, 1fr));
-      gap: 7px;
-    }
-
-    .letter {
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: var(--panel2);
-      color: var(--text);
-      font-size: 1.35rem;
-    }
-
-    .daygrid {
-      display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 4px;
-    }
-
-    .day {
-      min-height: 42px;
-      padding: 5px;
-      border-radius: 8px;
-      border: 1px solid var(--line);
-      background: var(--panel2);
-      color: var(--text);
-    }
-
-    .avatar {
-      font-size: 3rem;
-    }
-
-    .environment {
-      position: relative;
-      height: 280px;
-      overflow: hidden;
-      border-radius: 18px;
-      background: linear-gradient(#99d7ff 0 50%, #7fb875 50%);
-    }
-
-    .environment button {
-      position: absolute;
-      border: 0;
-      background: transparent;
-      font-size: 2.2rem;
-    }
-
-    .environment-label {
-      position: absolute;
-      right: 8px;
-      bottom: 8px;
-      left: 8px;
-      padding: 8px;
-      border-radius: 10px;
-      background: #ffffffdc;
-      color: #17213d;
-      text-align: center;
-    }
-
-    .intro {
-      position: fixed;
-      inset: 0;
-      z-index: 40;
-      display: grid;
-      place-items: center;
-      background: #050716;
-      color: white;
-      text-align: center;
-    }
-
-    .alien {
-      display: inline-block;
-      font-size: 4rem;
-      animation: spin 4s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    @media (min-width: 700px) {
-      main {
-        padding: 25px 22px 110px;
-      }
-
-      .nav {
-        gap: 10px;
-      }
-
-      .nav button {
-        font-size: .85rem;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مجرّة التعلّم | Learning Galaxy</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root {
+  --bg:#080b20; --panel:#141933; --panel2:#1b2142;
+  --text:#f5f4ff; --muted:#a8b0d5; --accent:#a78bfa;
+  --pink:#f0abfc; --blue:#7dd3fc; --border:#30375d;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:
+radial-gradient(circle at 15% 15%,#30205b66,transparent 28%),
+radial-gradient(circle at 85% 65%,#123b6255,transparent 30%),
+radial-gradient(1px 1px at 20% 30%,white 50%,transparent),
+radial-gradient(1px 1px at 80% 20%,white 50%,transparent),
+radial-gradient(2px 2px at 70% 85%,white 50%,transparent)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer;border:0;border-radius:13px;padding:11px 16px;font-weight:700}
+.primary{background:linear-gradient(120deg,var(--accent),var(--pink));color:#17132d}
+.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--border)}
+.danger{background:#52283d;color:#ffdce7}
+input,select,textarea{width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;background:#0d122b;color:var(--text);outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+label{display:block;margin:12px 0 6px;color:var(--muted);font-size:14px}
+small,.muted{color:var(--muted)}
+h1,h2,h3,p{margin-top:0}
+a{color:var(--blue)}
+.hidden{display:none!important}
+#authScreen{min-height:100vh;display:grid;place-items:center;padding:20px}
+.auth-card{width:min(440px,100%);padding:28px;background:#111630ed;border:1px solid var(--border);border-radius:25px;box-shadow:0 20px 70px #0005}
+.logo{font-size:50px;text-align:center;margin-bottom:5px}
+.brand{text-align:center;font-size:25px;font-weight:900}
+.subtitle{text-align:center;color:var(--muted);margin:8px 0 24px}
+.auth-tabs{display:flex;gap:8px;margin-bottom:16px}
+.auth-tabs button{flex:1}
+#authMessage{margin-top:14px;line-height:1.7;font-size:14px}
+#app{min-height:100vh;padding-bottom:88px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px max(16px,calc((100vw - 1100px)/2));border-bottom:1px solid var(--border);background:#080b20dd;position:sticky;top:0;z-index:5;backdrop-filter:blur(14px)}
+.topbrand{font-weight:900;font-size:18px}
+.pills{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pill{padding:7px 11px;border-radius:30px;background:var(--panel2);font-size:13px}
+main{width:min(1100px,100%);margin:auto;padding:22px 16px}
+.welcome{padding:24px;border:1px solid var(--border);border-radius:22px;background:linear-gradient(130deg,#24204c,#121a36);margin-bottom:22px}
+.welcome h1{font-size:clamp(24px,5vw,38px);margin-bottom:8px}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:24px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{padding:18px;border-radius:19px;background:var(--panel);border:1px solid var(--border)}
+.planet{min-height:210px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}
+.planet-orb{width:86px;height:86px;border-radius:50%;display:grid;place-items:center;font-size:43px;box-shadow:inset -12px -12px 25px #0005,0 0 30px #9b8cff44}
+.orb-english{background:linear-gradient(135deg,#a5f3fc,#8b5cf6 65%,#312e81)}
+.orb-purple{background:linear-gradient(135deg,#f0abfc,#8b5cf6,#312e81)}
+.orb-green{background:linear-gradient(135deg,#a7f3d0,#059669,#064e3b)}
+.orb-blue{background:linear-gradient(135deg,#bae6fd,#2563eb,#172554)}
+.row{display:flex;align-items:center;gap:12px}
+.row>*{min-width:0}
+.space-between{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.progress{height:8px;border-radius:10px;background:#303653;overflow:hidden;margin:10px 0}
+.progress span{height:100%;display:block;background:linear-gradient(90deg,var(--accent),var(--pink))}
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:8;display:flex;justify-content:center;gap:5px;padding:9px 5px calc(9px + env(safe-area-inset-bottom));background:#0c1025f2;border-top:1px solid var(--border);backdrop-filter:blur(15px)}
+.nav button{background:transparent;color:var(--muted);padding:9px 12px;min-width:58px;flex:1;max-width:130px;font-size:12px}
+.nav button.active{background:#29244d;color:#fff}
+.nav span{display:block;font-size:20px;margin-bottom:2px}
+.lesson{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border)}
+.lesson:last-child{border-bottom:0}
+.lesson-icon{width:43px;height:43px;flex-shrink:0;border-radius:14px;background:#2a2551;display:grid;place-items:center;font-size:21px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.actions button{flex:1}
+.notice{padding:12px;border-radius:12px;background:#252147;color:#e9ddff;line-height:1.7}
+textarea{min-height:100px;resize:vertical}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+.light{--bg:#edf3ff;--panel:#fff;--panel2:#e2e8fb;--text:#202546;--muted:#596384;--border:#d1d9ef}
+.light body{background:var(--bg)}
+.light .topbar{background:#f5f7ffed}
+.light input,.light select,.light textarea{background:#fff;color:#202546}
+.light .nav{background:#f5f7fff2}
+.light .welcome{background:linear-gradient(130deg,#e7ddff,#dff5ff)}
+.light .notice{background:#e7e0ff;color:#33245d}
+@media(max-width:480px){.topbar{padding:12px}.topbrand{font-size:15px}.nav button{padding:8px 4px;font-size:11px}.nav span{font-size:18px}.auth-card{padding:21px}}
+</style>
 </head>
-
 <body>
-  <div class="stars"></div>
-  <div id="toast" class="toast hidden" role="status"></div>
 
-  <!-- ========================================
-       القسم الثاني: تسجيل الدخول وإنشاء الحساب
-  ========================================= -->
+<!-- شاشة الحساب -->
+<section id="authScreen">
+  <div class="auth-card">
+    <div class="logo">🌌</div>
+    <div class="brand">مجرّة التعلّم</div>
+    <div class="subtitle">Learning Galaxy · رحلتك تبدأ من هنا</div>
 
-  <section id="auth" class="auth">
-    <div class="authbox">
-      <div class="planetmark">🪐</div>
-
-      <div class="logo">
-        مجرة <span>التعلّم</span>
-      </div>
-
-      <p class="muted center">
-        كل درس… كوكب جديد تكتشفه ✨
-      </p>
-
-      <div class="tabs">
-        <button id="loginTab" class="active" type="button"
-          onclick="setAuthMode('login')">
-          تسجيل الدخول
-        </button>
-
-        <button id="signupTab" type="button"
-          onclick="setAuthMode('signup')">
-          إنشاء حساب
-        </button>
-      </div>
-
-      <form id="authForm">
-        <div id="nameField" class="field hidden">
-          <label for="username">اسم المستخدم</label>
-          <input id="username" type="text"
-            placeholder="اكتب اسمك" autocomplete="name">
-        </div>
-
-        <div class="field">
-          <label for="email">البريد الإلكتروني</label>
-          <input id="email" type="email" required
-            placeholder="name@example.com"
-            autocomplete="email">
-        </div>
-
-        <div class="field">
-          <label for="password">كلمة المرور</label>
-          <input id="password" type="password" required
-            minlength="6" placeholder="6 أحرف على الأقل"
-            autocomplete="current-password">
-        </div>
-
-        <button id="authButton" class="btn full" type="submit">
-          دخول إلى المجرة
-        </button>
-
-        <button id="forgotButton" class="btn secondary full"
-          style="margin-top:9px" type="button"
-          onclick="forgotPassword()">
-          نسيت كلمة المرور؟
-        </button>
-      </form>
-
-      <p id="authMessage" class="muted small" aria-live="polite"></p>
-
-      <p class="muted small">
-        يتم التحقق من الحساب عبر Supabase.
-        قد تحتاج إلى تأكيد بريدك الإلكتروني.
-      </p>
+    <div class="auth-tabs">
+      <button class="primary" id="loginTab" onclick="setAuthMode('login')">تسجيل الدخول</button>
+      <button class="secondary" id="signupTab" onclick="setAuthMode('signup')">حساب جديد</button>
     </div>
-  </section>
 
-  <!-- شاشة الترحيب -->
+    <form id="authForm">
+      <label for="email">البريد الإلكتروني</label>
+      <input id="email" type="email" placeholder="name@example.com" autocomplete="email" required>
 
-  <section id="intro" class="intro hidden">
+      <label for="password">كلمة المرور</label>
+      <input id="password" type="password" placeholder="أدخلي كلمة المرور" autocomplete="current-password" minlength="6" required>
+
+      <div id="confirmPasswordWrap" class="hidden">
+        <label for="confirmPassword">تأكيد كلمة المرور</label>
+        <input id="confirmPassword" type="password" placeholder="أعيدي كتابة كلمة المرور" minlength="6">
+      </div>
+
+      <button class="primary" id="authSubmit" type="submit" style="width:100%;margin-top:18px">دخول إلى المجرّة ✨</button>
+    </form>
+
+    <button class="secondary" style="width:100%;margin-top:10px" onclick="resetPassword()">نسيت كلمة المرور؟</button>
+    <div id="authMessage" role="status"></div>
+    <p class="muted" style="font-size:12px;line-height:1.7;margin-top:15px">
+      عند إنشاء حساب، قد يرسل لك النظام رسالة لتأكيد بريدك الإلكتروني.
+    </p>
+  </div>
+</section>
+
+<!-- التطبيق بعد تسجيل الدخول -->
+<div id="app" class="hidden">
+  <header class="topbar">
+    <div class="topbrand">🌌 مجرّة التعلّم</div>
+    <div class="pills">
+      <div class="pill">⭐ <b id="pointsTop">0</b></div>
+      <div class="pill">🔥 <b id="streakTop">0</b></div>
+      <button class="secondary" style="padding:7px 10px" onclick="logout()">خروج</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="view-home">
+      <div class="welcome">
+        <div class="muted">أهلًا بكِ في رحلتك الفضائية 🚀</div>
+        <h1 id="helloName">مستعدة لاكتشاف شيء جديد؟</h1>
+        <p class="muted">كل درس خطوة، وكل خطوة تقرّبك من هدفك.</p>
+        <button class="primary" onclick="openView('planets')">اكتشفي كواكبك ←</button>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="muted">إجمالي نقاطك</div>
+          <div style="font-size:32px;font-weight:900;margin:8px 0" id="pointsHome">0 ⭐</div>
+          <small>اجمعي النقاط بإكمال الدروس.</small>
+        </div>
+        <div class="card">
+          <div class="muted">وقت التعلّم المسجّل</div>
+          <div style="font-size:32px;font-weight:900;margin:8px 0" id="minutesHome">0 دقيقة</div>
+          <small>الوقت المسجّل داخل هذه النسخة.</small>
+        </div>
+        <div class="card">
+          <div class="muted">الدروس المكتملة</div>
+          <div style="font-size:32px;font-weight:900;margin:8px 0" id="completedHome">0</div>
+          <small>واصلي التقدّم على مهل.</small>
+        </div>
+      </div>
+
+      <div class="section-title"><h2>كواكبك 🪐</h2><button class="secondary" onclick="openView('planets')">عرض الكل</button></div>
+      <div id="homePlanets" class="grid"></div>
+    </section>
+
+    <section id="view-planets" class="hidden">
+      <div class="section-title"><div><h2>كواكب التعلّم 🪐</h2><p class="muted">اختاري كوكبًا لبدء رحلتك.</p></div></div>
+      <div id="planetGrid" class="grid"></div>
+      <div class="card" style="margin-top:15px">
+        <h3>➕ اكتشفي كوكبًا جديدًا</h3>
+        <label for="newPlanetName">اسم الكوكب</label>
+        <input id="newPlanetName" maxlength="35" placeholder="مثل: كوكب الكيمياء">
+        <label for="newPlanetColor">لون الكوكب</label>
+        <select id="newPlanetColor">
+          <option value="purple">بنفسجي 💜</option>
+          <option value="green">أخضر 💚</option>
+          <option value="blue">أزرق 💙</option>
+        </select>
+        <button class="primary" style="margin-top:12px" onclick="addPlanet()">إنشاء كوكب</button>
+      </div>
+    </section>
+
+    <section id="view-lessons" class="hidden">
+      <button class="secondary" onclick="openView('planets')">← الكواكب</button>
+      <div class="section-title">
+        <div><h2 id="planetTitle">كوكب اللغة الإنجليزية</h2><p class="muted" id="planetSubtitle">اختاري درسًا وابدئي التعلّم.</p></div>
+        <div class="planet-orb orb-english">📚</div>
+      </div>
+      <div class="grid">
+        <div class="card"><div class="muted">التقدّم</div><h2 id="lessonProgress">0%</h2><div class="progress"><span id="lessonProgressBar" style="width:0%"></span></div></div>
+        <div class="card"><div class="muted">نقاط الكوكب</div><h2 id="planetPoints">0 ⭐</h2><small>النقاط المكتسبة من دروس هذا الكوكب.</small></div>
+      </div>
+      <div class="section-title"><h3>دروس اليوم</h3></div>
+      <div class="card" id="lessonList"></div>
+      <div class="card" style="margin-top:15px">
+        <h3>⏱️ جلسة تركيز</h3>
+        <p class="muted">حددي هدفك، وابدئي جلسة تعلّم. هذه النسخة تسجّل الوقت عند إنهاء الجلسة.</p>
+        <label for="focusMinutes">مدة الجلسة بالدقائق</label>
+        <select id="focusMinutes"><option>5</option><option>10</option><option>15</option><option>25</option><option>45</option></select>
+        <button class="primary" style="margin-top:12px" onclick="finishFocus()">إنهاء جلسة وتسجيل الوقت</button>
+      </div>
+    </section>
+
+    <section id="view-stats" class="hidden">
+      <h2>إحصائيات الكوكب 📊</h2>
+      <p class="muted">الإحصائيات للكوكب الذي اخترتِه حاليًا.</p>
+      <div class="grid">
+        <div class="card"><div class="muted">الدروس المكتملة</div><h2 id="statsLessons">0</h2></div>
+        <div class="card"><div class="muted">وقت التعلّم</div><h2 id="statsMinutes">0 دقيقة</h2></div>
+        <div class="card"><div class="muted">النقاط</div><h2 id="statsPoints">0 ⭐</h2></div>
+      </div>
+      <div class="card" style="margin-top:15px"><h3>تقدّمك</h3><div class="progress"><span id="statsBar" style="width:0%"></span></div><p id="statsSummary" class="muted"></p></div>
+    </section>
+
+    <section id="view-calendar" class="hidden">
+      <h2>تقويمي الفضائي 🗓️</h2>
+      <p class="muted">سجّلي أهدافك ومواعيدك هنا.</p>
+      <div class="card">
+        <label for="eventDate">التاريخ</label><input id="eventDate" type="date">
+        <label for="eventTitle">اسم الموعد أو الهدف</label><input id="eventTitle" maxlength="80" placeholder="مثل: مراجعة المفردات">
+        <label for="eventTime">الوقت (اختياري)</label><input id="eventTime" type="time">
+        <button class="primary" style="margin-top:12px" onclick="addEvent()">إضافة إلى التقويم</button>
+      </div>
+      <div class="section-title"><h3>مواعيدي</h3></div>
+      <div id="eventList" class="card"></div>
+      <p class="muted" style="font-size:12px">هذه النسخة تعرض المواعيد داخل التطبيق، ولا ترسل إشعارات خارجية.</p>
+    </section>
+
+    <section id="view-friends" class="hidden">
+      <h2>الأصدقاء 💌</h2>
+      <div class="notice">مساحة الأصدقاء والمراسلة تحتاج نظام مستخدمين وقاعدة بيانات وسياسات خصوصية قبل تفعيلها. لن ندّعي أن المراسلة تعمل وهي غير مربوطة بخادم.</div>
+      <div class="card" style="margin-top:15px">
+        <h3>فكرتك للمجتمع</h3>
+        <p class="muted">يمكن تطويرها لاحقًا لتشمل إضافة الأصدقاء، المتابعين، والمحادثات الخاصة بطريقة آمنة.</p>
+      </div>
+    </section>
+
+    <section id="view-profile" class="hidden">
+      <h2>ملفي الشخصي 👩🏻‍🚀</h2>
+      <div class="card">
+        <div style="font-size:62px;text-align:center">👩🏻‍🚀</div>
+        <label for="displayName">الاسم داخل المجرّة</label>
+        <input id="displayName" maxlength="30" placeholder="اكتبي اسمك">
+        <button class="primary" style="margin-top:12px" onclick="saveProfile()">حفظ الاسم</button>
+        <hr style="border-color:var(--border);margin:20px 0">
+        <div class="muted">البريد الإلكتروني</div><p id="profileEmail"></p>
+        <div class="muted">مجموع النقاط</div><h3 id="profilePoints">0 ⭐</h3>
+        <div class="muted">مجموع وقت التعلّم</div><h3 id="profileMinutes">0 دقيقة</h3>
+      </div>
+      <div class="card" style="margin-top:15px">
+        <h3>الإعدادات ⚙️</h3>
+        <div class="space-between"><span>المظهر الفاتح</span><button class="secondary" onclick="toggleTheme()">تغيير المظهر</button></div>
+        <p class="muted" style="margin-top:12px;font-size:13px">يمكن إضافة تخصيص الشخصية والتنبيهات ومواعيد الصلاة لاحقًا بعد تجهيز بياناتها ومصدرها.</p>
+      </div>
+      <div class="card" style="margin-top:15px">
+        <h3>الحساب</h3>
+        <button class="secondary" onclick="resetPassword()">إرسال رابط تغيير كلمة المرور</button>
+        <button class="danger" style="margin-top:10px;width:100%" onclick="logout()">تسجيل الخروج</button>
+      </div>
+    </section>
+  </main>
+
+  <nav class="nav">
+    <button class="active" data-view="home" onclick="openView('home')"><span>🏠</span>الرئيسية</button>
+    <button data-view="planets" onclick="openView('planets')"><span>🪐</span>الكواكب</button>
+    <button data-view="stats" onclick="openView('stats')"><span>📊</span>الإحصائيات</button>
+    <button data-view="calendar" onclick="openView('calendar')"><span>🗓️</span>التقويم</button>
+    <button data-view="friends" onclick="openView('friends')"><span>💌</span>الأصدقاء</button>
+    <button data-view="profile" onclick="openView('profile')"><span>👩🏻‍🚀</span>ملفي</button>
+  </nav>
+</div>
+
+<footer>Learning Galaxy · مجرّة التعلّم ✨</footer>
+
+<script>
+/* =====================================================
+   1) ضعي بيانات مشروع Supabase القديم هنا
+   Project Settings → API Keys
+   استخدمي Project URL و Publishable key فقط.
+   لا تضعي service_role key هنا.
+===================================================== */
+const SUPABASE_URL = "YOUR_SUPABASE_URL";
+const SUPABASE_PUBLISHABLE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
+
+let supabaseClient = null;
+let currentUser = null;
+let authMode = "login";
+let currentView = "home";
+let selectedPlanetId = "english";
+let data = null;
+
+const defaultLessons = [
+  {id:"letters",title:"الحروف الإنجليزية",desc:"تعرّفي على الحروف وأسمائها.",icon:"🔤"},
+  {id:"greetings",title:"التحيات والتعارف",desc:"Hello, Hi, My name is…",icon:"👋"},
+  {id:"pronouns",title:"الضمائر",desc:"I, You, He, She, It.",icon:"🧩"},
+  {id:"be",title:"قاعدة Verb to be",desc:"استخدام am و is و are.",icon:"📘"},
+  {id:"vocab",title:"المفردات اليومية",desc:"تعلّمي كلمات جديدة.",icon:"🪄"},
+  {id:"sentences",title:"بناء الجملة",desc:"كوّني جملًا بسيطة.",icon:"✍️"}
+];
+
+function initSupabase(){
+  if(SUPABASE_URL.startsWith("YOUR_") || SUPABASE_PUBLISHABLE_KEY.startsWith("YOUR_")){
+    showAuthMessage("أضيفي رابط مشروع Supabase ومفتاح Publishable في أعلى الكود أولًا.","error");
+    return false;
+  }
+  if(!window.supabase){
+    showAuthMessage("تعذّر تحميل مكتبة تسجيل الدخول. تحققي من اتصال الإنترنت ثم أعيدي تحميل الصفحة.","error");
+    return false;
+  }
+  const {createClient}=window.supabase;
+  supabaseClient=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+  return true;
+}
+
+function setAuthMode(mode){
+  authMode=mode;
+  document.getElementById("loginTab").className=mode==="login"?"primary":"secondary";
+  document.getElementById("signupTab").className=mode==="signup"?"primary":"secondary";
+  document.getElementById("authSubmit").textContent=mode==="login"?"دخول إلى المجرّة ✨":"إنشاء حساب جديد 🚀";
+  document.getElementById("confirmPasswordWrap").classList.toggle("hidden",mode!=="signup");
+  document.getElementById("password").autocomplete=mode==="login"?"current-password":"new-password";
+  showAuthMessage("");
+}
+
+function showAuthMessage(message,type="info"){
+  const el=document.getElementById("authMessage");
+  el.textContent=message;
+  el.style.color=type==="error"?"#fda4af":type==="success"?"#86efac":"#c4b5fd";
+}
+
+function friendlyAuthError(error){
+  const msg=(error?.message||"").toLowerCase();
+  if(msg.includes("invalid login credentials")) return "البريد أو كلمة المرور غير صحيحة.";
+  if(msg.includes("already registered")||msg.includes("user already registered")) return "هذا البريد مسجّل من قبل. جرّبي تسجيل الدخول.";
+  if(msg.includes("password")) return "تحققي من كلمة المرور؛ يجب أن تكون 6 أحرف على الأقل.";
+  if(msg.includes("email not confirmed")) return "أكّدي بريدك الإلكتروني من رسالة Supabase ثم حاولي الدخول.";
+  if(msg.includes("rate limit")) return "وصلتِ إلى حد المحاولات مؤقتًا. انتظري قليلًا ثم حاولي مجددًا.";
+  return error?.message||"حدث خطأ غير متوقع. تحققي من إعدادات Supabase.";
+}
+
+document.getElementById("authForm").addEventListener("submit",async function(e){
+  e.preventDefault();
+  if(!supabaseClient && !initSupabase()) return;
+
+  const email=document.getElementById("email").value.trim();
+  const password=document.getElementById("password").value;
+  const submit=document.getElementById("authSubmit");
+
+  if(password.length<6){
+    showAuthMessage("كلمة المرور يجب أن تكون 6 أحرف على الأقل.","error");
+    return;
+  }
+  if(authMode==="signup" && password!==document.getElementById("confirmPassword").value){
+    showAuthMessage("كلمتا المرور غير متطابقتين.","error");
+    return;
+  }
+
+  submit.disabled=true;
+  submit.textContent="لحظة، جاري التحقق…";
+  showAuthMessage("");
+
+  try{
+    if(authMode==="signup"){
+      const {data:result,error}=await supabaseClient.auth.signUp({
+        email,password,
+        options:{emailRedirectTo:window.location.href.split("#")[0]}
+      });
+      if(error) throw error;
+
+      if(result.session){
+        showAuthMessage("تم إنشاء حسابك! جاري فتح المجرّة…","success");
+      }else{
+        showAuthMessage("أُرسل طلب التسجيل. افتحي بريدك الإلكتروني واضغطي رابط التأكيد، ثم ارجعي وسجّلي الدخول.","success");
+      }
+    }else{
+      const {error}=await supabaseClient.auth.signInWithPassword({email,password});
+      if(error) throw error;
+    }
+  }catch(error){
+    showAuthMessage(friendlyAuthError(error),"error");
+  }finally{
+    submit.disabled=false;
+    submit.textContent=authMode==="login"?"دخول إلى المجرّة ✨":"إنشاء حساب جديد 🚀";
+  }
+});
+
+async function resetPassword(){
+  if(!supabaseClient && !initSupabase()) return;
+  const email=document.getElementById("email").value.trim();
+  if(!email){
+    showAuthMessage("اكتبي بريدك الإلكتروني في الخانة أولًا.","error");
+    document.getElementById("email").focus();
+    return;
+  }
+  try{
+    const redirectTo=window.location.href.split("#")[0];
+    const {error}=await supabaseClient.auth.resetPasswordForEmail(email,{redirectTo});
+    if(error) throw error;
+    showAuthMessage("إذا كان البريد مسجّلًا، فستصلك رسالة لاستعادة كلمة المرور. تحققي من صندوق البريد والرسائل غير المرغوب فيها.","success");
+  }catch(error){
+    showAuthMessage(friendlyAuthError(error),"error");
+  }
+}
+
+async function logout(){
+  if(!supabaseClient) return;
+  const {error}=await supabaseClient.auth.signOut();
+  if(error){alert(friendlyAuthError(error));return;}
+  currentUser=null;
+  data=null;
+  document.getElementById("app").classList.add("hidden");
+  document.getElementById("authScreen").classList.remove("hidden");
+  setAuthMode("login");
+}
+
+function blankData(){
+  return {
+    name:"",
+    points:0,
+    minutes:0,
+    streak:0,
+    completed:[],
+    planets:[{id:"english",name:"اللغة الإنجليزية",color:"english",icon:"📚",points:0,minutes:0,completed:[]}],
+    events:[]
+  };
+}
+
+function loadData(){
+  const key="learningGalaxyUser_"+currentUser.id;
+  try{
+    const saved=localStorage.getItem(key);
+    data=saved?JSON.parse(saved):blankData();
+  }catch(e){data=blankData();}
+  if(!Array.isArray(data.planets)) data.planets=blankData().planets;
+  if(!Array.isArray(data.events)) data.events=[];
+  if(!Array.isArray(data.completed)) data.completed=[];
+  if(!data.planets.some(p=>p.id==="english")){
+    data.planets.unshift(blankData().planets[0]);
+  }
+  if(!data.name) data.name=currentUser.email?.split("@")[0]||"مستكشفة";
+  saveData();
+}
+
+function saveData(){
+  if(!currentUser||!data) return;
+  localStorage.setItem("learningGalaxyUser_"+currentUser.id,JSON.stringify(data));
+}
+
+function showApp(){
+  document.getElementById("authScreen").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
+  loadData();
+  renderAll();
+  openView("home");
+}
+
+function openView(view){
+  currentView=view;
+  document.querySelectorAll('[id^="view-"]').forEach(el=>el.classList.add("hidden"));
+  const section=document.getElementById("view-"+view);
+  if(section) section.classList.remove("hidden");
+  document.querySelectorAll(".nav button").forEach(btn=>btn.classList.toggle("active",btn.dataset.view===view));
+  if(view==="stats") renderStats();
+  if(view==="calendar") renderEvents();
+  if(view==="profile") renderProfile();
+  if(view==="lessons") renderLessons();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function selectedPlanet(){
+  return data.planets.find(p=>p.id===selectedPlanetId)||data.planets[0];
+}
+
+function renderAll(){
+  document.getElementById("helloName").textContent="أهلًا يا "+data.name+"! مستعدة لاكتشاف شيء جديد؟";
+  document.getElementById("pointsTop").textContent=data.points;
+  document.getElementById("streakTop").textContent=data.streak;
+  document.getElementById("pointsHome").textContent=data.points+" ⭐";
+  document.getElementById("minutesHome").textContent=data.minutes+" دقيقة";
+  document.getElementById("completedHome").textContent=data.completed.length;
+  renderPlanetCards();
+  renderStats();
+  renderProfile();
+}
+
+function planetOrbClass(planet){
+  if(planet.color==="green") return "orb-green";
+  if(planet.color==="blue") return "orb-blue";
+  if(planet.color==="purple") return "orb-purple";
+  return "orb-english";
+}
+
+function planetCardHTML(p){
+  const count=p.completed?.length||0;
+  const percent=p.id==="english"?Math.round(count/defaultLessons.length*100):0;
+  return `<div class="card planet">
+    <div class="row">
+      <div class="planet-orb ${planetOrbClass(p)}">${escapeHTML(p.icon||"🪐")}</div>
+      <div><h3>${escapeHTML(p.name)}</h3><small>${count} درس مكتمل</small></div>
+    </div>
     <div>
-      <div class="alien">👽</div>
-      <h1>مرحبًا بك في مجرة التعلّم</h1>
-      <p>رحلتك الجديدة تبدأ الآن ✨</p>
+      <div class="progress"><span style="width:${percent}%"></span></div>
+      <div class="space-between"><small>${percent}% تقدّم</small><small>${p.points||0} ⭐</small></div>
+      <div class="actions">
+        <button class="primary" onclick="selectPlanet('${p.id}')">دخول الكوكب</button>
+        ${p.id!=="english"?`<button class="secondary" onclick="deletePlanet('${p.id}')">حذف</button>`:""}
+      </div>
     </div>
-  </section>
-
-  <!-- ========================================
-       القسم الثالث: التطبيق بعد تسجيل الدخول
-  ========================================= -->
-
-  <section id="app" class="hidden">
-    <header class="top">
-      <div>
-        <b>🪐 مجرة التعلّم</b>
-        <div id="greeting" class="muted small"></div>
-      </div>
-
-      <div class="row">
-        <button class="coin" onclick="openStore()">
-          ✦ <span id="coins">20</span>
-        </button>
-
-        <span class="streak">
-          🔥 <span id="streak">0</span>
-        </span>
-
-        <button class="btn secondary" onclick="toggleTheme()"
-          aria-label="تغيير المظهر">
-          ◐
-        </button>
-      </div>
-    </header>
-
-    <main id="main"></main>
-
-    <nav class="nav" aria-label="القائمة الرئيسية">
-      <button data-page="home" onclick="goPage('home')">
-        <b>⌂</b>الرئيسية
-      </button>
-
-      <button data-page="planets" onclick="goPage('planets')">
-        <b>🪐</b>الكواكب
-      </button>
-
-      <button data-page="stats" onclick="goPage('stats')">
-        <b>▥</b>الإحصاءات
-      </button>
-
-      <button data-page="calendar" onclick="goPage('calendar')">
-        <b>▦</b>الجدول
-      </button>
-
-      <button data-page="messages" onclick="goPage('messages')">
-        <b>▱</b>المحادثات
-      </button>
-
-      <button data-page="profile" onclick="goPage('profile')">
-        <b>☺</b>ملفي
-      </button>
-    </nav>
-  </section>
-
-  <div id="modalRoot"></div>
-
-  <!-- ========================================
-       القسم الرابع: مكتبة Supabase والإعدادات
-  ========================================= -->
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <script>
-    "use strict";
-
-    /*
-      إعدادات مشروع Supabase الحالي.
-      استخدمي Publishable key أو anon key فقط.
-      لا تضعي service_role أو Secret key هنا.
-    */
-
-    const SUPABASE_URL =
-      "https://zlrohdqstykwcpqkvawd.supabase.co";
-
-    const SUPABASE_KEY =
-      "sb_publishable_2bS6caXTWH0hZ_ZQtmPtIA_eOFAsAp6";
-
-    let supabaseClient = null;
-
-    try {
-      if (window.supabase) {
-        supabaseClient = window.supabase.createClient(
-          SUPABASE_URL,
-          SUPABASE_KEY
-        );
-      }
-    } catch (error) {
-      console.error("Supabase initialization error:", error);
-    }
-
-    // اختصار الوصول إلى عناصر الصفحة.
-
-    const $ = (id) => document.getElementById(id);
-
-    // حالة التطبيق الحالية.
-
-    let currentUser = null;
-    let authMode = "login";
-    let currentPage = "home";
-    let activePlanet = "english";
-    let englishTab = "lessons";
-    let focusTimer = null;
-    let focusRemaining = 0;
-    let focusTotal = 0;
-    let focusRunning = false;
-    let calendarMonth = new Date();
-    let selectedEmoji = "🪐";
-    let selectedCost = 0;
-    let selectedEnvironment = "home";
-    let selectedAvatar = "👩🏻‍🚀";
-    let currentQuizIndex = 0;
-    let currentQuizScore = 0;
-
-    // ========================================
-    // القسم الخامس: بيانات التطبيق الافتراضية
-    // ========================================
-
-    const defaultPlanets = () => [
-      {
-        id: "english",
-        name: "تعلم اللغة الإنجليزية",
-        emoji: "🌍",
-        type: "english",
-        progress: 0,
-        minutes: 0
-      },
-      {
-        id: "math",
-        name: "الرياضيات",
-        emoji: "🪐",
-        type: "subject",
-        progress: 0,
-        minutes: 0
-      },
-      {
-        id: "science",
-        name: "العلوم",
-        emoji: "🔵",
-        type: "subject",
-        progress: 0,
-        minutes: 0
-      }
-    ];
-
-    function createDefaultState() {
-      return {
-        name: "مستكشف المجرة",
-        email: "",
-        avatar: "👩🏻‍🚀",
-        coins: 20,
-        streak: 0,
-        lastStudyDate: "",
-        totalMinutes: 0,
-        theme: "dark",
-        planets: defaultPlanets(),
-        words: [],
-        mistakes: [],
-        events: [],
-        sessions: [],
-        built: [],
-        friends: [],
-        messages: [],
-        completedLessons: [],
-        englishStarted: false,
-        level: "من الصفر",
-        unlockedItems: [],
-        city: "مكة المكرمة"
-      };
-    }
-
-    let state = createDefaultState();
-
-    // لكل مستخدم مفتاح محلي منفصل.
-
-    function storageKey() {
-      return "learningGalaxy_" + (
-        currentUser?.id || currentUser?.email || "guest"
-      );
-    }
-
-    function loadState() {
-      const fresh = createDefaultState();
-
-      try {
-        const saved = localStorage.getItem(storageKey());
-
-        if (saved) {
-          const parsed = JSON.parse(saved);
-
-          state = {
-            ...fresh,
-            ...parsed
-          };
-        } else {
-          state = fresh;
-        }
-      } catch (error) {
-        console.error("Could not load local progress:", error);
-        state = fresh;
-      }
-
-      if (!Array.isArray(state.planets)) {
-        state.planets = defaultPlanets();
-      }
-
-      document.body.classList.toggle(
-        "light",
-        state.theme === "light"
-      );
-
-      updateHeader();
-    }
-
-    function saveState() {
-      try {
-        localStorage.setItem(
-          storageKey(),
-          JSON.stringify(state)
-        );
-      } catch (error) {
-        console.error("Could not save progress:", error);
-        showToast("تعذّر حفظ البيانات على هذا الجهاز.");
-      }
-
-      updateHeader();
-    }
-
-    function updateHeader() {
-      if ($("coins")) {
-        $("coins").textContent = state.coins;
-      }
-
-      if ($("streak")) {
-        $("streak").textContent = state.streak;
-      }
-
-      if ($("greeting")) {
-        $("greeting").textContent =
-          "أهلًا، " + state.name;
-      }
-    }
-
-    // ========================================
-    // القسم السادس: أدوات مساعدة
-    // ========================================
-
-    function escapeHTML(value) {
-      return String(value ?? "").replace(
-        /[&<>"']/g,
-        (char) => ({
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#39;"
-        })[char]
-      );
-    }
-
-    function showToast(message) {
-      const toast = $("toast");
-
-      toast.textContent = message;
-      toast.classList.remove("hidden");
-
-      clearTimeout(showToast.timeout);
-
-      showToast.timeout = setTimeout(() => {
-        toast.classList.add("hidden");
-      }, 3000);
-    }
-
-    function formatMinutes(value) {
-      const minutes = Math.round(Number(value) || 0);
-
-      if (minutes < 60) {
-        return minutes + " دقيقة";
-      }
-
-      const hours = Math.floor(minutes / 60);
-      const rest = minutes % 60;
-
-      return hours + " ساعة " + rest + " دقيقة";
-    }
-
-    function formatClock(seconds) {
-      const safeSeconds = Math.max(
-        0,
-        Math.floor(Number(seconds) || 0)
-      );
-
-      const minutes = Math.floor(safeSeconds / 60);
-      const remainder = safeSeconds % 60;
-
-      return String(minutes).padStart(2, "0") +
-        ":" +
-        String(remainder).padStart(2, "0");
-    }
-
-    function speakEnglish(text) {
-      if (!("speechSynthesis" in window)) {
-        showToast("الصوت غير متاح في هذا المتصفح.");
-        return;
-      }
-
-      const utterance = new SpeechSynthesisUtterance(text);
-
-      utterance.lang = "en-US";
-      utterance.rate = 0.85;
-
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(utterance);
-    }
-
-    function showModal(content) {
-      $("modalRoot").innerHTML = `
-        <div class="modalbg" id="modalBackground">
-          <div class="modal" role="dialog" aria-modal="true">
-            ${content}
-          </div>
-        </div>
-      `;
-
-      $("modalBackground").addEventListener("click", (event) => {
-        if (event.target.id === "modalBackground") {
-          closeModal();
-        }
-      });
-    }
-
-    function closeModal() {
-      $("modalRoot").innerHTML = "";
-    }
-
-    // ========================================
-    // القسم السابع: تسجيل الدخول الحقيقي
-    // ========================================
-
-    function setAuthMode(mode) {
-      authMode = mode;
-
-      $("loginTab").classList.toggle(
-        "active",
-        mode === "login"
-      );
-
-      $("signupTab").classList.toggle(
-        "active",
-        mode === "signup"
-      );
-
-      $("nameField").classList.toggle(
-        "hidden",
-        mode !== "signup"
-      );
-
-      $("forgotButton").classList.toggle(
-        "hidden",
-        mode !== "login"
-      );
-
-      $("authButton").textContent =
-        mode === "login"
-          ? "دخول إلى المجرة"
-          : "إنشاء حساب";
-
-      $("authMessage").textContent = "";
-    }
-
-    $("authForm").addEventListener("submit", async (event) => {
-      event.preventDefault();
-
-      const email = $("email").value.trim();
-      const password = $("password").value;
-      const name = $("username").value.trim();
-
-      const button = $("authButton");
-
-      button.disabled = true;
-      $("authMessage").textContent = "جارٍ التحقق من الحساب...";
-
-      try {
-        if (!supabaseClient) {
-          throw new Error(
-            "تعذّر الاتصال بخدمة الحسابات. حدّثي الصفحة وحاولي مجددًا."
-          );
-        }
-
-        if (authMode === "signup") {
-          const result = await supabaseClient.auth.signUp({
-            email,
-            password,
-            options: {
-              data: {
-                display_name: name || email.split("@")[0]
-              }
-            }
-          });
-
-          if (result.error) {
-            throw result.error;
-          }
-
-          if (!result.data.session) {
-            $("authMessage").textContent =
-              "تم إرسال طلب إنشاء الحساب. " +
-              "تحققي من بريدك الإلكتروني لتأكيد الحساب، " +
-              "ثم ارجعي وسجّلي الدخول.";
-
-            return;
-          }
-
-          currentUser = result.data.user;
-
-          loadState();
-
-          state.email = email;
-          state.name =
-            name ||
-            currentUser.user_metadata?.display_name ||
-            email.split("@")[0];
-
-          saveState();
-
-          enterApp(true);
-          return;
-        }
-
-        const result = await supabaseClient.auth.signInWithPassword({
-          email,
-          password
-        });
-
-        if (result.error) {
-          throw result.error;
-        }
-
-        currentUser = result.data.user;
-
-        loadState();
-
-        state.email = email;
-
-        if (state.name === "مستكشف المجرة") {
-          state.name =
-            currentUser.user_metadata?.display_name ||
-            email.split("@")[0];
-        }
-
-        saveState();
-        enterApp(true);
-
-      } catch (error) {
-        console.error("Authentication error:", error);
-
-        $("authMessage").textContent =
-          error.message ||
-          "حدث خطأ أثناء تسجيل الدخول. حاولي مرة أخرى.";
-
-      } finally {
-        button.disabled = false;
-      }
-    });
-
-    async function forgotPassword() {
-      const email = $("email").value.trim();
-
-      if (!email) {
-        $("authMessage").textContent =
-          "اكتبي بريدك الإلكتروني أولًا.";
-        $("email").focus();
-        return;
-      }
-
-      try {
-        const { error } =
-          await supabaseClient.auth.resetPasswordForEmail(
-            email,
-            {
-              redirectTo: window.location.href
-            }
-          );
-
-        if (error) {
-          throw error;
-        }
-
-        $("authMessage").textContent =
-          "إذا كان البريد مسجلًا، فستصلك رسالة لاستعادة كلمة المرور.";
-
-      } catch (error) {
-        $("authMessage").textContent =
-          error.message || "تعذّر إرسال رسالة الاستعادة.";
-      }
-    }
-
-    async function bootApp() {
-      if (!supabaseClient) {
-        return;
-      }
-
-      try {
-        const { data, error } =
-          await supabaseClient.auth.getSession();
-
-        if (error) {
-          throw error;
-        }
-
-        if (data.session) {
-          currentUser = data.session.user;
-
-          loadState();
-
-          state.email = currentUser.email || "";
-
-          if (state.name === "مستكشف المجرة") {
-            state.name =
-              currentUser.user_metadata?.display_name ||
-              currentUser.email?.split("@")[0] ||
-              state.name;
-          }
-
-          saveState();
-          enterApp(false);
-        }
-
-      } catch (error) {
-        console.error("Session loading error:", error);
-      }
-    }
-
-    function enterApp(showIntro) {
-      $("auth").classList.add("hidden");
-      $("app").classList.remove("hidden");
-
-      if (showIntro) {
-        $("intro").classList.remove("hidden");
-
-        setTimeout(() => {
-          $("intro").classList.add("hidden");
-        }, 1800);
-      }
-
-      goPage("home");
-    }
-
-    async function logout() {
-      stopFocusTimer();
-
-      try {
-        if (supabaseClient) {
-          const { error } =
-            await supabaseClient.auth.signOut();
-
-          if (error) {
-            throw error;
-          }
-        }
-
-        currentUser = null;
-
-        $("app").classList.add("hidden");
-        $("auth").classList.remove("hidden");
-
-        $("password").value = "";
-        $("authMessage").textContent = "";
-
-        setAuthMode("login");
-
-      } catch (error) {
-        showToast(error.message || "تعذّر تسجيل الخروج.");
-      }
-    }
-
-    // ========================================
-    // القسم الثامن: التنقل بين صفحات التطبيق
-    // ========================================
-
-    function goPage(pageName) {
-      currentPage = pageName;
-
-      document.querySelectorAll(".nav button").forEach((button) => {
-        button.classList.toggle(
-          "active",
-          button.dataset.page === pageName
-        );
-      });
-
-      renderPage();
-    }
-
-    function toggleTheme() {
-      state.theme =
-        state.theme === "light" ? "dark" : "light";
-
-      document.body.classList.toggle(
-        "light",
-        state.theme === "light"
-      );
-
-      saveState();
-    }
-
-    // ========================================
-    // القسم التاسع: الرئيسية والكواكب
-    // ========================================
-
-    function planetCard(planet) {
-      return `
-        <div class="card planet">
-          <div class="planet-art">${planet.emoji}</div>
-
-          <div>
-            <h3>${escapeHTML(planet.name)}</h3>
-
-            <div class="progress">
-              <span style="width:${Math.min(
-                100,
-                Math.max(0, planet.progress || 0)
-              )}%"></span>
-            </div>
-
-            <p class="muted small">
-              ${planet.progress || 0}% مكتمل
-              · ${formatMinutes(planet.minutes)}
-            </p>
-
-            <button class="btn"
-              onclick="openPlanet('${planet.id}')">
-              دخول الكوكب
-            </button>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderHome() {
-      return `
-        <section class="hero">
-          <p style="color:var(--blue)">
-            أهلًا بمستكشف المجرة ✨
-          </p>
-
-          <h1>كل يوم، اكتشاف جديد.</h1>
-
-          <p class="muted">
-            اختاري كوكبك وابدئي رحلتك التعليمية.
-          </p>
-
-          <div class="row">
-            <button class="btn"
-              onclick="openPlanet('english')">
-              متابعة التعلّم
-            </button>
-
-            <button class="btn secondary"
-              onclick="openAddPlanet()">
-              ＋ إضافة كوكب
-            </button>
-          </div>
-        </section>
-
-        <div class="grid three">
-          <div class="card">
-            ✦ النقاط
-            <h2>${state.coins}</h2>
-          </div>
-
-          <div class="card">
-            🔥 سلسلة التعلّم
-            <h2>${state.streak} يوم</h2>
-          </div>
-
-          <div class="card">
-            ⏱ وقت التعلّم
-            <h2>${formatMinutes(state.totalMinutes)}</h2>
-          </div>
-        </div>
-
-        <div class="between">
-          <h2>كواكبك 🪐</h2>
-
-          <button class="btn secondary"
-            onclick="goPage('planets')">
-            جميع الكواكب
-          </button>
-        </div>
-
-        <div class="grid three">
-          ${state.planets.map(planetCard).join("")}
-        </div>
-
-        <div class="card">
-          <h2>🎯 هدف اليوم</h2>
-          <p class="muted">
-            ابدئي بجلسة قصيرة، ثم زيدي وقتك تدريجيًا.
-          </p>
-
-          <button class="btn"
-            onclick="openPlanet('english')">
-            ابدأ درسًا
-          </button>
-        </div>
-      `;
-    }
-
-    function renderPlanets() {
-      return `
-        <div class="between">
-          <h1>🪐 الكواكب</h1>
-
-          <button class="btn" onclick="openAddPlanet()">
-            ＋ كوكب جديد
-          </button>
-        </div>
-
-        <p class="muted">
-          خصصي كوكبًا لكل مادة أو مهارة تريدين تعلّمها.
-        </p>
-
-        <div class="grid three">
-          ${state.planets.map(planetCard).join("")}
-        </div>
-      `;
-    }
-
-    function openPlanet(id) {
-      activePlanet = id;
-
-      const planet = state.planets.find(
-        (item) => item.id === id
-      );
-
-      if (!planet) {
-        showToast("لم يتم العثور على هذا الكوكب.");
-        return;
-      }
-
-      if (planet.type === "english") {
-        currentPage = "planet";
-        renderEnglishPlanet();
-
-        if (!state.englishStarted) {
-          showStartEnglish();
-        }
-
-        return;
-      }
-
-      currentPage = "planet";
-      renderWorldPlanet();
-    }
-
-    // ========================================
-    // القسم العاشر: إنشاء كوكب جديد
-    // ========================================
-
-    function openAddPlanet() {
-      selectedEmoji = "🪐";
-      selectedCost = 0;
-
-      const options = [
-        ["🪐", 0],
-        ["🌍", 0],
-        ["🔴", 0],
-        ["🟣", 10],
-        ["🟢", 10],
-        ["🌕", 15],
-        ["🌈", 20],
-        ["💫", 25]
-      ];
-
-      showModal(`
-        <h2>إنشاء كوكب جديد 🚀</h2>
-
-        <div class="field">
-          <label for="planetName">اسم المادة أو المهارة</label>
-          <input id="planetName"
-            placeholder="مثال: الكيمياء أو التاريخ">
-        </div>
-
-        <p class="muted small">
-          بعض أشكال الكواكب تحتاج نقاطًا.
-        </p>
-
-        <div class="choicegrid">
-          ${options.map((option, index) => `
-            <button class="choice"
-              id="planetChoice${index}"
-              onclick="choosePlanetEmoji('${option[0]}',${option[1]},${index})">
-              ${option[0]}
-              <br>
-              <small>${option[1]} ✦</small>
-            </button>
-          `).join("")}
-        </div>
-
-        <button class="btn full"
-          style="margin-top:12px"
-          onclick="createPlanet()">
-          إنشاء الكوكب
-        </button>
-      `);
-    }
-
-    function choosePlanetEmoji(emoji, cost, index) {
-      selectedEmoji = emoji;
-      selectedCost = cost;
-
-      document.querySelectorAll('[id^="planetChoice"]').forEach(
-        (button) => {
-          button.style.borderColor = "var(--line)";
-        }
-      );
-
-      const selected = $("planetChoice" + index);
-
-      if (selected) {
-        selected.style.borderColor = "var(--purple)";
-      }
-    }
-
-    function createPlanet() {
-      const name = $("planetName").value.trim();
-
-      if (!name) {
-        showToast("اكتبي اسم الكوكب أولًا.");
-        return;
-      }
-
-      if (state.coins < selectedCost) {
-        showToast("نقاطك لا تكفي لهذا الشكل.");
-        return;
-      }
-
-      state.coins -= selectedCost;
-
-      const id = "planet_" + Date.now();
-
-      state.planets.push({
-        id,
-        name,
-        emoji: selectedEmoji,
-        type: "subject",
-        progress: 0,
-        minutes: 0
-      });
-
-      saveState();
-      closeModal();
-      goPage("planets");
-
-      showToast("تم إنشاء كوكبك الجديد! 🪐");
-    }
-
-    // ========================================
-    // القسم الحادي عشر: رحلة الإنجليزية
-    // ========================================
-
-    const englishUnits = [
-      {
-        title: "البداية والتعارف",
-        description: "الحروف والتحيات وتقديم نفسك",
-        english: "Hello",
-        arabic: "مرحبًا",
-        choices: ["مرحبًا", "مدرسة", "قلم"],
-        correct: 0
-      },
-      {
-        title: "الأشياء من حولي",
-        description: "الأشياء والألوان",
-        english: "Book",
-        arabic: "كتاب",
-        choices: ["نافذة", "كتاب", "سيارة"],
-        correct: 1
-      },
-      {
-        title: "الأرقام والأيام",
-        description: "الأرقام والوقت",
-        english: "Three",
-        arabic: "ثلاثة",
-        choices: ["اثنان", "أربعة", "ثلاثة"],
-        correct: 2
-      },
-      {
-        title: "عائلتي وأصدقائي",
-        description: "الأشخاص والعلاقات",
-        english: "Family",
-        arabic: "عائلة",
-        choices: ["عائلة", "شارع", "حقيبة"],
-        correct: 0
-      },
-      {
-        title: "البيت والغرف",
-        description: "الأثاث والغرف",
-        english: "Door",
-        arabic: "باب",
-        choices: ["باب", "ماء", "قلم"],
-        correct: 0
-      },
-      {
-        title: "الطعام والشراب",
-        description: "الوجبات والطلبات",
-        english: "Water",
-        arabic: "ماء",
-        choices: ["كتاب", "ماء", "بيت"],
-        correct: 1
-      },
-      {
-        title: "الأماكن والاتجاهات",
-        description: "السوق والشارع",
-        english: "Market",
-        arabic: "سوق",
-        choices: ["سوق", "مدرسة", "حديقة"],
-        correct: 0
-      },
-      {
-        title: "روتيني اليومي",
-        description: "الأفعال والوقت",
-        english: "Study",
-        arabic: "يدرس",
-        choices: ["ينام", "يلعب", "يدرس"],
-        correct: 2
-      },
-      {
-        title: "الهوايات والطقس",
-        description: "وصف الأنشطة والطقس",
-        english: "Sunny",
-        arabic: "مشمس",
-        choices: ["ممطر", "مشمس", "بارد"],
-        correct: 1
-      },
-      {
-        title: "مراجعة وتطبيق",
-        description: "مراجعة عامة",
-        english: "I can learn",
-        arabic: "أستطيع التعلّم",
-        choices: [
-          "أستطيع التعلّم",
-          "أحب النوم",
-          "أنا في البيت"
-        ],
-        correct: 0
-      }
-    ];
-
-    function showStartEnglish() {
-      showModal(`
-        <h2>مرحبًا بك في كوكب الإنجليزية 🌍</h2>
-
-        <p class="muted">
-          اختاري نقطة البداية المناسبة لك.
-        </p>
-
-        <div class="choicegrid">
-          <button class="choice"
-            onclick="beginEnglish('من الصفر')">
-            🌱 أبدأ من الصفر
-          </button>
-
-          <button class="choice"
-            onclick="startPlacementTest()">
-            🧭 أحدد مستواي
-          </button>
-        </div>
-      `);
-    }
-
-    function beginEnglish(level) {
-      state.englishStarted = true;
-      state.level = level;
-
-      saveState();
-      closeModal();
-      renderEnglishPlanet();
-    }
-
-    const placementQuestions = [
-      {
-        q: "اختر التحية الصحيحة",
-        options: ["Hello", "Blue", "Run"],
-        answer: 0
-      },
-      {
-        q: "I ___ a student.",
-        options: ["am", "is", "are"],
-        answer: 0
-      },
-      {
-        q: "ما جمع book؟",
-        options: ["bookes", "books", "book's"],
-        answer: 1
-      },
-      {
-        q: "She ___ to school.",
-        options: ["go", "goes", "going"],
-        answer: 1
-      },
-      {
-        q: "ما ماضي play؟",
-        options: ["played", "plays", "playing"],
-        answer: 0
-      }
-    ];
-
-    function startPlacementTest() {
-      currentQuizIndex = 0;
-      currentQuizScore = 0;
-      showPlacementQuestion();
-    }
-
-    function showPlacementQuestion() {
-      if (currentQuizIndex >= placementQuestions.length) {
-        state.englishStarted = true;
-
-        state.level =
-          currentQuizScore <= 1
-            ? "مبتدئ"
-            : currentQuizScore <= 3
-              ? "A1"
-              : "A2";
-
-        saveState();
-        closeModal();
-        renderEnglishPlanet();
-
-        showToast("نقطة البداية المقترحة: " + state.level);
-        return;
-      }
-
-      const question = placementQuestions[currentQuizIndex];
-
-      showModal(`
-        <p class="muted small">
-          السؤال ${currentQuizIndex + 1}
-          من ${placementQuestions.length}
-        </p>
-
-        <h2>${question.q}</h2>
-
-        <div class="choicegrid">
-          ${question.options.map((option, index) => `
-            <button class="choice"
-              onclick="answerPlacement(${index})">
-              ${option}
-            </button>
-          `).join("")}
-        </div>
-      `);
-    }
-
-    function answerPlacement(index) {
-      if (
-        index ===
-        placementQuestions[currentQuizIndex].answer
-      ) {
-        currentQuizScore++;
-      }
-
-      currentQuizIndex++;
-      showPlacementQuestion();
-    }
-
-    function renderEnglishPlanet() {
-      const planet = state.planets.find(
-        (item) => item.id === "english"
-      );
-
-      if (!planet) {
-        return;
-      }
-
-      $("main").innerHTML = `
-        <div class="between">
-          <h1>🌍 ${escapeHTML(planet.name)}</h1>
-
-          <button class="btn secondary"
-            onclick="goPage('planets')">
-            رجوع للكواكب
-          </button>
-        </div>
-
-        <div class="subnav">
-          <button class="${englishTab === "lessons" ? "active" : ""}"
-            onclick="englishTab='lessons';renderEnglishPlanet()">
-            📚 الدروس
-          </button>
-
-          <button class="${englishTab === "progress" ? "active" : ""}"
-            onclick="englishTab='progress';renderEnglishPlanet()">
-            📈 التقدم
-          </button>
-
-          <button class="${englishTab === "tools" ? "active" : ""}"
-            onclick="englishTab='tools';renderEnglishPlanet()">
-            🧰 الأدوات
-          </button>
-        </div>
-
-        ${englishTab === "lessons"
-          ? renderEnglishLessons()
-          : englishTab === "progress"
-            ? renderEnglishProgress()
-            : renderEnglishTools()}
-      `;
-    }
-
-    function renderEnglishLessons() {
-      const completed = state.completedLessons.length;
-
-      return `
-        <div class="card">
-          <h2>رحلتك التعليمية 🚀</h2>
-
-          <p class="muted">
-            المستوى الحالي: ${escapeHTML(state.level)}
-          </p>
-
-          <div class="progress">
-            <span style="width:${completed * 10}%"></span>
-          </div>
-
-          <p class="small muted">
-            الوحدات المكتملة: ${completed}/10
-          </p>
-        </div>
-
-        ${englishUnits.map((unit, index) => `
-          <div class="lesson">
-            <div class="grow">
-              <b>
-                ${index + 1}. ${escapeHTML(unit.title)}
-              </b>
-
-              <div class="muted small">
-                ${escapeHTML(unit.description)}
-              </div>
-            </div>
-
-            <button class="btn"
-              onclick="openLesson(${index})">
-              ${state.completedLessons.includes(index)
-                ? "مراجعة"
-                : "ابدأ"}
-            </button>
-          </div>
-        `).join("")}
-      `;
-    }
-
-    function renderEnglishProgress() {
-      const completed = state.completedLessons.length;
-
-      return `
-        <div class="card">
-          <h2>تقدمك في الإنجليزية</h2>
-
-          <div class="progress">
-            <span style="width:${completed * 10}%"></span>
-          </div>
-
-          <h3>${completed}/10 وحدات مكتملة</h3>
-
-          <p>الكلمات المحفوظة: ${state.words.length}</p>
-          <p>الأخطاء المسجلة: ${state.mistakes.length}</p>
-          <p>وقت التعلّم: ${formatMinutes(state.totalMinutes)}</p>
-        </div>
-      `;
-    }
-
-    function renderEnglishTools() {
-      const tools = [
-        ["training", "🧩", "التدريبات"],
-        ["letters", "🔤", "الحروف"],
-        ["talk", "🎙️", "محادثة تدريبية"],
-        ["podcast", "🎧", "استماع"],
-        ["writing", "✍️", "الكتابة"],
-        ["words", "🗂️", "إضافة كلمات"],
-        ["vocab", "📚", "حصيلتي اللغوية"],
-        ["mistakes", "🧠", "أخطائي"],
-        ["environment", "🏠", "البيئة التفاعلية"]
-      ];
-
-      return `
-        <div class="grid three">
-          ${tools.map((tool) => `
-            <button class="card center"
-              onclick="openFeature('${tool[0]}')">
-              <div style="font-size:2rem">${tool[1]}</div>
-              <b>${tool[2]}</b>
-            </button>
-          `).join("")}
-        </div>
-      `;
-    }
-
-    function openLesson(index) {
-      const unit = englishUnits[index];
-
-      showModal(`
-        <p class="muted small">
-          الوحدة ${index + 1} من ${englishUnits.length}
-        </p>
-
-        <h2>${escapeHTML(unit.title)}</h2>
-
-        <p>${escapeHTML(unit.description)}</p>
-
-        <div class="card center">
-          <h2>${escapeHTML(unit.english)}</h2>
-          <p>${escapeHTML(unit.arabic)}</p>
-
-          <button class="btn secondary"
-            onclick="speakEnglish('${unit.english}')">
-            🔊 استمع للنطق
-          </button>
-        </div>
-
-        <h3>اختر المعنى الصحيح</h3>
-
-        <div class="choicegrid">
-          ${unit.choices.map((choice, choiceIndex) => `
-            <button class="choice"
-              onclick="checkLessonAnswer(${index},${choiceIndex})">
-              ${escapeHTML(choice)}
-            </button>
-          `).join("")}
-        </div>
-      `);
-    }
-
-    function checkLessonAnswer(unitIndex, answerIndex) {
-      const unit = englishUnits[unitIndex];
-
-      if (answerIndex !== unit.correct) {
-        state.mistakes.unshift({
-          question: unit.english,
-          answer: unit.choices[answerIndex],
-          correct: unit.arabic
-        });
-
-        saveState();
-
-        showToast("حاولي مرة أخرى. المعنى الصحيح: " + unit.arabic);
-        return;
-      }
-
-      if (!state.completedLessons.includes(unitIndex)) {
-        state.completedLessons.push(unitIndex);
-        state.coins += 10;
-        state.totalMinutes += 5;
-
-        const planet = state.planets.find(
-          (item) => item.id === "english"
-        );
-
-        if (planet) {
-          planet.minutes += 5;
-          planet.progress = Math.round(
-            state.completedLessons.length * 10
-          );
-        }
-
-        recordStudyDay();
-      }
-
-      saveState();
-      closeModal();
-      renderEnglishPlanet();
-
-      showToast("ممتاز! ربحتِ 10 نقاط ✦");
-    }
-
-    // ========================================
-    // القسم الثاني عشر: أدوات الإنجليزية
-    // ========================================
-
-    function openFeature(featureName) {
-      const titles = {
-        training: "التدريبات",
-        letters: "الحروف الإنجليزية",
-        talk: "محادثة تدريبية",
-        podcast: "تدريب الاستماع",
-        writing: "تدريب الكتابة",
-        words: "إضافة كلمة",
-        vocab: "حصيلتي اللغوية",
-        mistakes: "أخطائي",
-        environment: "البيئة التفاعلية"
-      };
-
-      let content = "";
-
-      if (featureName === "training") {
-        content = `
-          <p class="muted">
-            اختاري نوع التدريب الذي تريدين مراجعته.
-          </p>
-
-          <div class="choicegrid">
-            <button class="choice" onclick="openMiniQuiz('grammar')">
-              قواعد
-            </button>
-
-            <button class="choice" onclick="openMiniQuiz('listening')">
-              استماع
-            </button>
-
-            <button class="choice" onclick="openMiniQuiz('writing')">
-              كتابة
-            </button>
-
-            <button class="choice" onclick="openMiniQuiz('vocab')">
-              مفردات
-            </button>
-          </div>
-        `;
-      }
-
-      if (featureName === "letters") {
-        content = `
-          <p class="muted">
-            اضغطي على الحرف لسماع اسمه.
-          </p>
-
-          <div class="lettergrid">
-            ${"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map((letter) => `
-              <button class="letter"
-                onclick="speakEnglish('${letter.toLowerCase()}')">
-                ${letter}
-                <small>${letter.toLowerCase()}</small>
-              </button>
-            `).join("")}
-          </div>
-        `;
-      }
-
-      if (featureName === "talk") {
-        content = `
-          <div class="card">
-            <b>المعلّم الفضائي 👽</b>
-            <p>Hello! What is your name?</p>
-            <p class="muted small">مرحبًا! ما اسمك؟</p>
-          </div>
-
-          <div class="field">
-            <label for="talkInput">اكتبي إجابتك بالإنجليزية</label>
-            <input id="talkInput" placeholder="My name is Sara.">
-          </div>
-
-          <button class="btn" onclick="replyToTalk()">
-            إرسال
-          </button>
-
-          <div id="talkReply"></div>
-
-          <p class="muted small">
-            هذه محادثة تدريبية مبسطة وليست ذكاءً اصطناعيًا مباشرًا.
-          </p>
-        `;
-      }
-
-      if (featureName === "podcast") {
-        content = `
-          <h3>استمعي إلى الجملة</h3>
-
-          <div class="card">
-            <p>Hello. I am at home.</p>
-            <p>I read a book and drink water.</p>
-
-            <button class="btn secondary"
-              onclick="speakEnglish('Hello. I am at home. I read a book and drink water.')">
-              🎧 تشغيل الصوت
-            </button>
-          </div>
-
-          <div class="field">
-            <label for="podcastAnswer">أين الشخص؟</label>
-            <select id="podcastAnswer">
-              <option value="">اختاري الإجابة</option>
-              <option value="home">في البيت</option>
-              <option value="school">في المدرسة</option>
-              <option value="market">في السوق</option>
-            </select>
-          </div>
-
-          <button class="btn"
-            onclick="checkPodcast()">
-            تحقق
-          </button>
-        `;
-      }
-
-      if (featureName === "writing") {
-        content = `
-          <button class="btn secondary"
-            onclick="pickWritingTopic()">
-            🎡 اختر موضوعًا
-          </button>
-
-          <p id="writingTopic">اختاري موضوعًا للكتابة.</p>
-
-          <div class="field">
-            <label for="writingText">اكتبي بالإنجليزية</label>
-            <textarea id="writingText"
-              placeholder="My name is..."></textarea>
-          </div>
-
-          <button class="btn" onclick="reviewWriting()">
-            مراجعة أولية
-          </button>
-
-          <div id="writingFeedback"></div>
-        `;
-      }
-
-      if (featureName === "words") {
-        content = `
-          <div class="field">
-            <label for="newWord">الكلمة بالإنجليزية</label>
-            <input id="newWord" placeholder="apple">
-          </div>
-
-          <div class="field">
-            <label for="newMeaning">المعنى بالعربية</label>
-            <input id="newMeaning" placeholder="تفاحة">
-          </div>
-
-          <button class="btn" onclick="addVocabularyWord()">
-            إضافة الكلمة
-          </button>
-        `;
-      }
-
-      if (featureName === "vocab") {
-        content = state.words.length
-          ? state.words.map((word, index) => `
-              <div class="lesson">
-                <div class="grow">
-                  <b>${escapeHTML(word.english)}</b>
-                  — ${escapeHTML(word.arabic)}
-                </div>
-
-                <button class="btn secondary"
-                  onclick="speakEnglish('${word.english.replace(/'/g, "\\'")}')">
-                  🔊
-                </button>
-
-                <button class="btn danger"
-                  onclick="deleteVocabularyWord(${index})">
-                  حذف
-                </button>
-              </div>
-            `).join("")
-          : "<p>لم تضيفي كلمات حتى الآن.</p>";
-      }
-
-      if (featureName === "mistakes") {
-        content = state.mistakes.length
-          ? state.mistakes.map((mistake, index) => `
-              <div class="event">
-                <b>${escapeHTML(mistake.question)}</b>
-                <p>إجابتك: ${escapeHTML(mistake.answer)}</p>
-                <p>الصحيح: ${escapeHTML(mistake.correct)}</p>
-
-                <button class="btn secondary"
-                  onclick="deleteMistake(${index})">
-                  تمت المراجعة
-                </button>
-              </div>
-            `).join("")
-          : "<p>لا توجد أخطاء محفوظة حاليًا.</p>";
-      }
-
-      if (featureName === "environment") {
-        content = `
-          <div class="field">
-            <label for="environmentSelect">اختاري المكان</label>
-
-            <select id="environmentSelect"
-              onchange="selectedEnvironment=this.value;openFeature('environment')">
-              <option value="home"
-                ${selectedEnvironment === "home" ? "selected" : ""}>
-                البيت
-              </option>
-
-              <option value="market"
-                ${selectedEnvironment === "market" ? "selected" : ""}>
-                السوق
-              </option>
-
-              <option value="street"
-                ${selectedEnvironment === "street" ? "selected" : ""}>
-                الشارع
-              </option>
-            </select>
-          </div>
-
-          <div class="environment">
-            ${environmentObjects().map((item, index) => `
-              <button
-                style="left:${8 + index * 23}%;top:${20 + (index % 2) * 30}%"
-                onclick="learnEnvironmentWord('${item[1]}','${item[2]}')">
-                ${item[0]}
-              </button>
-            `).join("")}
-
-            <div class="environment-label">
-              اضغطي على الشيء لتتعلمي اسمه بالإنجليزية.
-            </div>
-          </div>
-        `;
-      }
-
-      showModal(`
-        <div class="between">
-          <h2>${titles[featureName] || "التعلّم"}</h2>
-
-          <button class="btn secondary"
-            onclick="closeModal()">
-            ✕
-          </button>
-        </div>
-
-        ${content}
-      `);
-    }
-
-    function environmentObjects() {
-      const environments = {
-        home: [
-          ["🛋️", "sofa", "أريكة"],
-          ["🚪", "door", "باب"],
-          ["🪟", "window", "نافذة"],
-          ["📚", "book", "كتاب"]
-        ],
-        market: [
-          ["🍎", "apple", "تفاحة"],
-          ["🛒", "shopping cart", "عربة تسوق"],
-          ["🥛", "milk", "حليب"],
-          ["🍞", "bread", "خبز"]
-        ],
-        street: [
-          ["🚗", "car", "سيارة"],
-          ["🌳", "tree", "شجرة"],
-          ["🚦", "traffic light", "إشارة مرور"],
-          ["🏠", "house", "منزل"]
-        ]
-      };
-
-      return environments[selectedEnvironment] || environments.home;
-    }
-
-    function learnEnvironmentWord(english, arabic) {
-      showToast(arabic + " — " + english);
-      speakEnglish(english);
-    }
-
-    function replyToTalk() {
-      const value = $("talkInput").value.trim();
-      const isCorrect = /my name is|i am|i'm|hello|hi/i.test(value);
-
-      if (!value) {
-        showToast("اكتبي إجابة أولًا.");
-        return;
-      }
-
-      $("talkReply").innerHTML = isCorrect
-        ? '<div class="card">أحسنتِ! إجابتك مفهومة 👏</div>'
-        : '<div class="card">جرّبي: My name is Sara.</div>';
-
-      if (isCorrect) {
-        state.coins += 2;
-      } else {
-        state.mistakes.unshift({
-          question: "What is your name?",
-          answer: value,
-          correct: "My name is ..."
-        });
-      }
-
-      saveState();
-    }
-
-    function checkPodcast() {
-      const answer = $("podcastAnswer").value;
-
-      if (!answer) {
-        showToast("اختاري إجابة أولًا.");
-        return;
-      }
-
-      if (answer === "home") {
-        state.coins += 3;
-        saveState();
-        showToast("إجابة صحيحة! +3 نقاط ✦");
-      } else {
-        showToast("حاولي مرة أخرى.");
-      }
-    }
-
-    const writingTopics = [
-      "My family",
-      "My school",
-      "My favorite food",
-      "My daily routine",
-      "My city",
-      "My room"
-    ];
-
-    function pickWritingTopic() {
-      const randomIndex = Math.floor(
-        Math.random() * writingTopics.length
-      );
-
-      $("writingTopic").textContent =
-        "اكتبي عن: " + writingTopics[randomIndex];
-    }
-
-    function reviewWriting() {
-      const text = $("writingText").value.trim();
-
-      if (!text) {
-        showToast("اكتبي جملة أولًا.");
-        return;
-      }
-
-      const feedback = [];
-
-      if (!/^[A-Z]/.test(text)) {
-        feedback.push("ابدئي بحرف كبير.");
-      }
-
-      if (!/[.!?]$/.test(text)) {
-        feedback.push("أضيفي نقطة أو علامة ترقيم في النهاية.");
-      }
-
-      if (/\bi am\b/.test(text)) {
-        feedback.push("تذكري أن I تُكتب دائمًا بحرف كبير.");
-      }
-
-      $("writingFeedback").innerHTML = `
-        <div class="card">
-          ${feedback.length
-            ? feedback.map(escapeHTML).join("<br>")
-            : "بداية جميلة! راجعي الإملاء وترتيب الجمل."}
-
-          <p class="muted small">
-            هذه مراجعة أولية وليست تصحيحًا كاملًا بالذكاء الاصطناعي.
-          </p>
-        </div>
-      `;
-
-      state.coins += 2;
-      saveState();
-    }
-
-    function addVocabularyWord() {
-      const english = $("newWord").value.trim();
-      const arabic = $("newMeaning").value.trim();
-
-      if (!english || !arabic) {
-        showToast("اكتبي الكلمة ومعناها.");
-        return;
-      }
-
-      state.words.push({ english, arabic });
-
-      saveState();
-      openFeature("vocab");
-      showToast("تمت إضافة الكلمة 📚");
-    }
-
-    function deleteVocabularyWord(index) {
-      state.words.splice(index, 1);
-      saveState();
-      openFeature("vocab");
-    }
-
-    function deleteMistake(index) {
-      state.mistakes.splice(index, 1);
-      saveState();
-      openFeature("mistakes");
-    }
-
-    // ========================================
-    // القسم الثالث عشر: التدريبات القصيرة
-    // ========================================
-
-    const miniQuizzes = {
-      grammar: {
-        question: "She ___ happy.",
-        options: ["is", "are", "am"],
-        answer: 0,
-        correctText: "She is happy."
-      },
-      listening: {
-        question: "استمعي ثم اختاري الكلمة.",
-        options: ["apple", "table", "water"],
-        answer: 0,
-        correctText: "apple"
-      },
-      writing: {
-        question: "أي جملة صحيحة؟",
-        options: [
-          "I like apples.",
-          "I likes apples.",
-          "I liking apples."
-        ],
-        answer: 0,
-        correctText: "I like apples."
-      },
-      vocab: {
-        question: "ما معنى water؟",
-        options: ["ماء", "نافذة", "طريق"],
-        answer: 0,
-        correctText: "ماء"
-      }
+  </div>`;
+}
+
+function renderPlanetCards(){
+  const html=data.planets.map(planetCardHTML).join("");
+  document.getElementById("homePlanets").innerHTML=html;
+  document.getElementById("planetGrid").innerHTML=html;
+}
+
+function selectPlanet(id){
+  selectedPlanetId=id;
+  const p=selectedPlanet();
+  document.getElementById("planetTitle").textContent=p.name;
+  document.getElementById("planetSubtitle").textContent=p.id==="english"?"تعلّمي الإنجليزية خطوة بخطوة.":"هذا كوكبك الجديد؛ أضيفي أهدافه ودروسه في تطوير لاحق.";
+  openView("lessons");
+}
+
+function addPlanet(){
+  const name=document.getElementById("newPlanetName").value.trim();
+  const color=document.getElementById("newPlanetColor").value;
+  if(!name){alert("اكتبي اسم الكوكب أولًا.");return;}
+  if(data.planets.length>=20){alert("وصلتِ إلى الحد التجريبي وهو 20 كوكبًا.");return;}
+  data.planets.push({id:"p_"+Date.now(),name,color,icon:"🪐",points:0,minutes:0,completed:[]});
+  document.getElementById("newPlanetName").value="";
+  saveData();renderAll();
+}
+
+function deletePlanet(id){
+  if(!confirm("متأكدة أنك تريدين حذف هذا الكوكب؟"))return;
+  data.planets=data.planets.filter(p=>p.id!==id);
+  if(selectedPlanetId===id)selectedPlanetId="english";
+  saveData();renderAll();
+}
+
+function renderLessons(){
+  const p=selectedPlanet();
+  document.getElementById("planetTitle").textContent=p.name;
+  document.getElementById("planetPoints").textContent=(p.points||0)+" ⭐";
+  const isEnglish=p.id==="english";
+  const lessons=isEnglish?defaultLessons:[{id:"goal",title:"حددي هدف الكوكب",desc:"اكتبي هدفًا لهذا الكوكب في ملاحظاتك.",icon:"🎯"}];
+  const done=p.completed||[];
+  const percent=Math.round(done.length/lessons.length*100);
+  document.getElementById("lessonProgress").textContent=percent+"%";
+  document.getElementById("lessonProgressBar").style.width=percent+"%";
+  document.getElementById("lessonList").innerHTML=lessons.map((l,i)=>{
+    const complete=done.includes(l.id);
+    return `<div class="lesson">
+      <div class="lesson-icon">${l.icon}</div>
+      <div style="flex:1"><b>${escapeHTML(l.title)}</b><div><small>${escapeHTML(l.desc)}</small></div></div>
+      <button class="${complete?"secondary":"primary"}" onclick="doLesson('${l.id}')">${complete?"مكتمل ✓":"ابدئي"}</button>
+    </div>`;
+  }).join("");
+}
+
+function doLesson(id){
+  const p=selectedPlanet();
+  if((p.completed||[]).includes(id)){alert("أنهيتِ هذا الدرس من قبل!");return;}
+  if(p.id==="english"){
+    const l=defaultLessons.find(x=>x.id===id);
+    const content={
+      letters:"الحروف الإنجليزية 26 حرفًا. لكل حرف اسم وصوت، وقد يختلف الصوت داخل الكلمات. مثال: A في كلمة apple.",
+      greetings:"Hello = مرحبًا. Hi = أهلًا. My name is… = اسمي… جرّبي قول: Hello, my name is Sara.",
+      pronouns:"I = أنا، You = أنت/أنتِ، He = هو، She = هي، It = لغير العاقل غالبًا، We = نحن، They = هم.",
+      be:"I am، You are، He is، She is، It is، We are، They are. مثال: She is a student.",
+      vocab:"Book = كتاب، Water = ماء، School = مدرسة، Friend = صديق، Learn = يتعلّم. اكتبي الكلمات وراجعيها.",
+      sentences:"الترتيب الشائع للجملة البسيطة: Subject + Verb + Object. مثال: I read a book. = أنا أقرأ كتابًا."
     };
+    alert(l.title+"\\n\\n"+content[id]+"\\n\\nبعد المراجعة، اضغطي «تممت الدرس» لتسجيله.");
+    if(!confirm("هل أنهيتِ مراجعة الدرس وتريدين تسجيله؟"))return;
+  }else{
+    const goal=prompt("اكتبي هدفك لهذا الكوكب:");
+    if(goal===null)return;
+    alert("تم تسجيل الدرس التجريبي. يمكن تطوير دروس مخصصة لهذا الكوكب لاحقًا.");
+  }
+  p.completed=p.completed||[];
+  p.completed.push(id);
+  p.points=(p.points||0)+10;
+  data.points+=10;
+  data.completed.push(p.id+":"+id);
+  saveData();renderAll();renderLessons();renderStats();
+}
 
-    function openMiniQuiz(type) {
-      const question = miniQuizzes[type];
+function finishFocus(){
+  const minutes=Number(document.getElementById("focusMinutes").value);
+  if(!confirm("هل أنهيتِ جلسة تركيز مدتها "+minutes+" دقائق؟"))return;
+  data.minutes+=minutes;
+  const p=selectedPlanet();
+  p.minutes=(p.minutes||0)+minutes;
+  saveData();renderAll();renderStats();
+  alert("تم تسجيل "+minutes+" دقائق في إحصائياتك ⭐");
+}
 
-      if (!question) {
-        return;
-      }
+function renderStats(){
+  if(!data)return;
+  const p=selectedPlanet();
+  const count=p.completed?.length||0;
+  const lessons=p.id==="english"?defaultLessons.length:1;
+  const percent=Math.min(100,Math.round(count/lessons*100));
+  document.getElementById("statsLessons").textContent=count;
+  document.getElementById("statsMinutes").textContent=(p.minutes||0)+" دقيقة";
+  document.getElementById("statsPoints").textContent=(p.points||0)+" ⭐";
+  document.getElementById("statsBar").style.width=percent+"%";
+  document.getElementById("statsSummary").textContent="أكملتِ "+count+" من "+lessons+" درسًا تجريبيًا في "+p.name+".";
+}
 
-      showModal(`
-        <h2>تدريب سريع 🧩</h2>
+function addEvent(){
+  const date=document.getElementById("eventDate").value;
+  const title=document.getElementById("eventTitle").value.trim();
+  const time=document.getElementById("eventTime").value;
+  if(!date||!title){alert("أدخلي التاريخ واسم الموعد.");return;}
+  data.events.push({id:"e_"+Date.now(),date,title,time});
+  data.events.sort((a,b)=>(a.date+(a.time||"")).localeCompare(b.date+(b.time||"")));
+  document.getElementById("eventTitle").value="";
+  saveData();renderEvents();
+}
 
-        <p>${question.question}</p>
+function renderEvents(){
+  if(!data)return;
+  const list=document.getElementById("eventList");
+  if(!data.events.length){list.innerHTML='<p class="muted">لا توجد مواعيد بعد. أضيفي أول هدف لكِ!</p>';return;}
+  list.innerHTML=data.events.map(e=>`<div class="lesson">
+    <div class="lesson-icon">🗓️</div><div style="flex:1"><b>${escapeHTML(e.title)}</b><div><small>${escapeHTML(e.date)} ${escapeHTML(e.time||"")}</small></div></div>
+    <button class="danger" onclick="deleteEvent('${e.id}')">حذف</button>
+  </div>`).join("");
+}
 
-        ${type === "listening"
-          ? `<button class="btn secondary"
-              onclick="speakEnglish('apple')">
-              🔊 استمع
-            </button>`
-          : ""}
+function deleteEvent(id){
+  data.events=data.events.filter(e=>e.id!==id);
+  saveData();renderEvents();
+}
 
-        <div class="choicegrid" style="margin-top:12px">
-          ${question.options.map((option, index) => `
-            <button class="choice"
-              onclick="answerMiniQuiz('${type}',${index})">
-              ${option}
-            </button>
-          `).join("")}
-        </div>
-      `);
+function renderProfile(){
+  if(!data||!currentUser)return;
+  document.getElementById("displayName").value=data.name||"";
+  document.getElementById("profileEmail").textContent=currentUser.email||"";
+  document.getElementById("profilePoints").textContent=data.points+" ⭐";
+  document.getElementById("profileMinutes").textContent=data.minutes+" دقيقة";
+}
+
+function saveProfile(){
+  const name=document.getElementById("displayName").value.trim();
+  if(!name){alert("اكتبي اسمًا أولًا.");return;}
+  data.name=name.slice(0,30);
+  saveData();renderAll();
+  alert("تم حفظ الاسم على هذا الجهاز.");
+}
+
+function toggleTheme(){
+  document.documentElement.classList.toggle("light");
+  localStorage.setItem("learningGalaxyTheme",document.documentElement.classList.contains("light")?"light":"dark");
+}
+
+function escapeHTML(value){
+  return String(value??"").replace(/[&<>"']/g,char=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[char]);
+}
+
+async function start(){
+  const savedTheme=localStorage.getItem("learningGalaxyTheme");
+  if(savedTheme==="light")document.documentElement.classList.add("light");
+  if(!initSupabase())return;
+
+  const {data:{session},error}=await supabaseClient.auth.getSession();
+  if(error)showAuthMessage(friendlyAuthError(error),"error");
+  if(session?.user){
+    currentUser=session.user;
+    showApp();
+  }
+
+  supabaseClient.auth.onAuthStateChange((event,session)=>{
+    if(session?.user){
+      currentUser=session.user;
+      showApp();
+    }else if(event==="SIGNED_OUT"){
+      currentUser=null;
+      document.getElementById("app").classList.add("hidden");
+      document.getElementById("authScreen").classList.remove("hidden");
     }
-
-    function answerMiniQuiz(type, index) {
-      const question = miniQuizzes[type];
-
-      if (index === question.answer) {
-        state.coins += 3;
-        saveState();
-
-        closeModal();
-        showToast("إجابة صحيحة! +3 نقاط ✦");
-      } else {
-        showToast("الإجابة الصحيحة: " + question.correctText);
-      }
-    }
-
-    // ========================================
-    // القسم الرابع عشر: عالم التركيز والمؤقت
-    // ========================================
-
-    function renderWorldPlanet() {
-      const planet = state.planets.find(
-        (item) => item.id === activePlanet
-      );
-
-      if (!planet) {
-        goPage("planets");
-        return;
-      }
-
-      $("main").innerHTML = `
-        <div class="between">
-          <h1>${planet.emoji} ${escapeHTML(planet.name)}</h1>
-
-          <button class="btn secondary"
-            onclick="goPage('planets')">
-            رجوع
-          </button>
-        </div>
-
-        <div class="card">
-          <h2>🏗️ ابنِ عالمك مع التعلّم</h2>
-
-          <p class="muted">
-            أكملي جلسة تركيز لتحصلي على نقاط وتضيفي عنصرًا لعالمك.
-          </p>
-
-          <div class="field">
-            <label for="focusDuration">مدة الجلسة</label>
-
-            <select id="focusDuration">
-              <option value="15">15 دقيقة</option>
-              <option value="25" selected>25 دقيقة</option>
-              <option value="45">45 دقيقة</option>
-              <option value="60">60 دقيقة</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="buildChoice">ماذا تريدين أن تبني؟</label>
-
-            <select id="buildChoice">
-              <option value="🌳|حديقة">🌳 حديقة</option>
-              <option value="🏠|بيت">🏠 بيت</option>
-              <option value="🛒|متجر">🛒 متجر</option>
-              <option value="🌊|بحر">🌊 بحر</option>
-              <option value="🏙️|مدينة">🏙️ مدينة</option>
-            </select>
-          </div>
-
-          <h1 id="focusClock" class="center">
-            ${formatClock(focusRemaining || 1500)}
-          </h1>
-
-          <div class="row">
-            <button class="btn" onclick="startFocusTimer()">
-              ▶ ابدأ / تابع
-            </button>
-
-            <button class="btn secondary" onclick="pauseFocusTimer()">
-              إيقاف مؤقت
-            </button>
-
-            <button class="btn danger" onclick="finishFocusTimer(false)">
-              إنهاء
-            </button>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>🌱 عالمك الحالي</h2>
-
-          <div class="grid three">
-            ${state.built.map((item) => `
-              <div class="card center">
-                <div style="font-size:2rem">${item.emoji}</div>
-                ${escapeHTML(item.name)}
-              </div>
-            `).join("") || "عالمك ينتظر أول جلسة مكتملة."}
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>ملاحظة مهمة</h2>
-
-          <p class="muted small">
-            المؤقت يعمل ما دامت الصفحة تعمل.
-            هذه الصفحة لا تستطيع قفل تطبيقات الجهاز الأخرى.
-          </p>
-        </div>
-      `;
-    }
-
-    function startFocusTimer() {
-      if (focusRunning) {
-        pauseFocusTimer();
-        return;
-      }
-
-      if (focusRemaining <= 0) {
-        const duration = Number($("focusDuration")?.value || 25);
-
-        focusTotal = duration * 60;
-        focusRemaining = focusTotal;
-      }
-
-      focusRunning = true;
-      clearInterval(focusTimer);
-
-      focusTimer = setInterval(() => {
-        focusRemaining--;
-
-        const clock = $("focusClock");
-
-        if (clock) {
-          clock.textContent = formatClock(focusRemaining);
-        }
-
-        if (focusRemaining <= 0) {
-          finishFocusTimer(true);
-        }
-      }, 1000);
-
-      showToast("بدأت جلسة التركيز ⏱️");
-    }
-
-    function pauseFocusTimer() {
-      focusRunning = false;
-      clearInterval(focusTimer);
-      focusTimer = null;
-
-      showToast("تم إيقاف المؤقت مؤقتًا.");
-    }
-
-    function stopFocusTimer() {
-      focusRunning = false;
-      clearInterval(focusTimer);
-      focusTimer = null;
-    }
-
-    function finishFocusTimer(completed) {
-      stopFocusTimer();
-
-      if (completed) {
-        const planet = state.planets.find(
-          (item) => item.id === activePlanet
-        );
-
-        const minutes = Math.round(focusTotal / 60);
-        const buildValue = $("buildChoice")?.value || "🌳|حديقة";
-        const parts = buildValue.split("|");
-
-        state.coins += Math.max(5, minutes);
-        state.totalMinutes += minutes;
-
-        if (planet) {
-          planet.minutes += minutes;
-        }
-
-        state.sessions.push({
-          planet: activePlanet,
-          minutes,
-          date: new Date().toISOString()
-        });
-
-        state.built.push({
-          emoji: parts[0],
-          name: parts[1],
-          planet: activePlanet
-        });
-
-        recordStudyDay();
-        saveState();
-
-        showToast("اكتملت الجلسة! ربحتِ نقاطًا 🎉");
-      }
-
-      focusRemaining = 0;
-      focusTotal = 0;
-
-      if (currentPage === "planet") {
-        renderWorldPlanet();
-      }
-    }
-
-    function recordStudyDay() {
-      const today = new Date().toISOString().slice(0, 10);
-
-      const yesterday = new Date(
-        Date.now() - 86400000
-      ).toISOString().slice(0, 10);
-
-      if (state.lastStudyDate !== today) {
-        state.streak =
-          state.lastStudyDate === yesterday
-            ? state.streak + 1
-            : 1;
-
-        state.lastStudyDate = today;
-      }
-
-      saveState();
-    }
-
-    // ========================================
-    // القسم الخامس عشر: الإحصاءات
-    // ========================================
-
-    function renderStats() {
-      return `
-        <h1>📊 إحصاءاتك</h1>
-
-        <div class="grid three">
-          <div class="card">
-            الوقت الكلي
-            <h2>${formatMinutes(state.totalMinutes)}</h2>
-          </div>
-
-          <div class="card">
-            الدروس المكتملة
-            <h2>${state.completedLessons.length}</h2>
-          </div>
-
-          <div class="card">
-            جلسات التركيز
-            <h2>${state.sessions.length}</h2>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>الوقت حسب الكوكب</h2>
-
-          ${state.planets.map((planet) => `
-            <div class="event between">
-              <span>
-                ${planet.emoji}
-                ${escapeHTML(planet.name)}
-              </span>
-
-              <b>${formatMinutes(planet.minutes)}</b>
-            </div>
-          `).join("")}
-        </div>
-
-        <div class="card">
-          <h2>آخر جلسات التركيز</h2>
-
-          ${state.sessions.slice(-10).reverse().map((session) => `
-            <div class="event">
-              <b>${session.minutes} دقيقة</b>
-              <div class="muted small">
-                ${new Date(session.date).toLocaleString("ar-SA")}
-              </div>
-            </div>
-          `).join("") || "لم تسجلي جلسات تركيز بعد."}
-        </div>
-      `;
-    }
-
-    // ========================================
-    // القسم السادس عشر: الجدول والتقويم
-    // ========================================
-
-    function renderCalendar() {
-      const year = calendarMonth.getFullYear();
-      const month = calendarMonth.getMonth();
-
-      const firstDay = new Date(year, month, 1).getDay();
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-      const cells = [];
-
-      for (let i = 0; i < firstDay; i++) {
-        cells.push("<div></div>");
-      }
-
-      for (let day = 1; day <= daysInMonth; day++) {
-        const date =
-          year + "-" +
-          String(month + 1).padStart(2, "0") + "-" +
-          String(day).padStart(2, "0");
-
-        const hasEvent = state.events.some(
-          (event) => event.date === date
-        );
-
-        cells.push(`
-          <button class="day"
-            onclick="openEventForm('${date}')">
-            ${day}${hasEvent ? " •" : ""}
-          </button>
-        `);
-      }
-
-      const monthLabel = calendarMonth.toLocaleDateString(
-        "ar-SA",
-        { month: "long", year: "numeric" }
-      );
-
-      return `
-        <div class="between">
-          <h1>📅 الجدول</h1>
-
-          <button class="btn"
-            onclick="openEventForm()">
-            ＋ حدث جديد
-          </button>
-        </div>
-
-        <div class="card">
-          <div class="between">
-            <button class="btn secondary"
-              onclick="changeCalendarMonth(-1)">
-              السابق
-            </button>
-
-            <b>${monthLabel}</b>
-
-            <button class="btn secondary"
-              onclick="changeCalendarMonth(1)">
-              التالي
-            </button>
-          </div>
-
-          <div class="daygrid" style="margin-top:12px">
-            ${["أح", "اث", "ثل", "أر", "خم", "جم", "سب"]
-              .map((day) => `
-                <div class="muted center small">${day}</div>
-              `).join("")}
-
-            ${cells.join("")}
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>الأحداث المحفوظة</h2>
-
-          ${state.events
-            .map((event, index) => ({ ...event, index }))
-            .sort((a, b) => a.date.localeCompare(b.date))
-            .map((event) => `
-              <div class="event">
-                <b>${escapeHTML(event.title)}</b>
-
-                <p class="muted small">
-                  ${event.date}
-                  ${event.time ? " · " + event.time : ""}
-                </p>
-
-                ${event.note
-                  ? `<p>${escapeHTML(event.note)}</p>`
-                  : ""}
-
-                <button class="btn danger"
-                  onclick="deleteCalendarEvent(${event.index})">
-                  حذف
-                </button>
-              </div>
-            `).join("") || "لا توجد أحداث محفوظة."}
-        </div>
-      `;
-    }
-
-    function changeCalendarMonth(amount) {
-      calendarMonth = new Date(
-        calendarMonth.getFullYear(),
-        calendarMonth.getMonth() + amount,
-        1
-      );
-
-      goPage("calendar");
-    }
-
-    function openEventForm(date = "") {
-      const defaultDate =
-        date || new Date().toISOString().slice(0, 10);
-
-      showModal(`
-        <h2>إضافة حدث 📅</h2>
-
-        <div class="field">
-          <label for="eventTitle">اسم الحدث</label>
-          <input id="eventTitle" placeholder="مثال: مراجعة الإنجليزية">
-        </div>
-
-        <div class="field">
-          <label for="eventDate">التاريخ</label>
-          <input id="eventDate" type="date" value="${defaultDate}">
-        </div>
-
-        <div class="field">
-          <label for="eventTime">الوقت</label>
-          <input id="eventTime" type="time">
-        </div>
-
-        <div class="field">
-          <label for="eventNote">ملاحظة</label>
-          <textarea id="eventNote" placeholder="تفاصيل إضافية"></textarea>
-        </div>
-
-        <button class="btn full" onclick="saveCalendarEvent()">
-          حفظ الحدث
-        </button>
-      `);
-    }
-
-    function saveCalendarEvent() {
-      const title = $("eventTitle").value.trim();
-      const date = $("eventDate").value;
-      const time = $("eventTime").value;
-      const note = $("eventNote").value.trim();
-
-      if (!title || !date) {
-        showToast("أدخلي اسم الحدث والتاريخ.");
-        return;
-      }
-
-      state.events.push({
-        title,
-        date,
-        time,
-        note
-      });
-
-      saveState();
-      closeModal();
-      goPage("calendar");
-
-      showToast("تم حفظ الحدث.");
-    }
-
-    function deleteCalendarEvent(index) {
-      state.events.splice(index, 1);
-      saveState();
-      goPage("calendar");
-    }
-
-    // ========================================
-    // القسم السابع عشر: المحادثات
-    // ========================================
-
-    function renderMessages() {
-      return `
-        <h1>💬 المحادثات</h1>
-
-        <div class="card">
-          <p class="muted">
-            يمكنك حفظ أسماء أصدقائك وكتابة رسائل تجريبية.
-            هذه النسخة لا ترسل رسائل فعلية إلى حسابات أخرى.
-          </p>
-
-          <div class="field">
-            <label for="friendName">اسم المستخدم</label>
-            <input id="friendName" placeholder="@username">
-          </div>
-
-          <button class="btn" onclick="addFriend()">
-            ＋ إضافة صديق
-          </button>
-
-          <h2>أصدقائي</h2>
-
-          ${state.friends.map((friend, index) => `
-            <div class="event between">
-              <b>👤 ${escapeHTML(friend)}</b>
-
-              <button class="btn secondary"
-                onclick="openChat(${index})">
-                كتابة رسالة
-              </button>
-            </div>
-          `).join("") || "لم تضيفي أصدقاء بعد."}
-        </div>
-
-        <div class="card">
-          <h2>الرسائل المحفوظة محليًا</h2>
-
-          ${state.messages.map((message) => `
-            <div class="event">
-              <b>إلى: ${escapeHTML(message.to)}</b>
-              <p>${escapeHTML(message.text)}</p>
-            </div>
-          `).join("") || "لا توجد رسائل بعد."}
-        </div>
-      `;
-    }
-
-    function addFriend() {
-      const name = $("friendName").value.trim().replace(/^@/, "");
-
-      if (!name) {
-        showToast("اكتبي اسم المستخدم.");
-        return;
-      }
-
-      if (!state.friends.includes(name)) {
-        state.friends.push(name);
-      }
-
-      saveState();
-      goPage("messages");
-    }
-
-    function openChat(index) {
-      const friend = state.friends[index];
-
-      if (!friend) {
-        return;
-      }
-
-      showModal(`
-        <h2>رسالة إلى ${escapeHTML(friend)}</h2>
-
-        <p class="muted small">
-          هذه الرسالة ستُحفظ على جهازك فقط.
-        </p>
-
-        <div class="field">
-          <label for="messageText">نص الرسالة</label>
-          <textarea id="messageText"
-            placeholder="اكتبي رسالتك هنا"></textarea>
-        </div>
-
-        <button class="btn full"
-          onclick="saveLocalMessage(${index})">
-          حفظ الرسالة
-        </button>
-      `);
-    }
-
-    function saveLocalMessage(friendIndex) {
-      const text = $("messageText").value.trim();
-
-      if (!text) {
-        showToast("اكتبي رسالة أولًا.");
-        return;
-      }
-
-      state.messages.push({
-        to: state.friends[friendIndex],
-        text
-      });
-
-      saveState();
-      closeModal();
-      goPage("messages");
-
-      showToast("تم حفظ الرسالة محليًا.");
-    }
-
-    // ========================================
-    // القسم الثامن عشر: الملف الشخصي
-    // ========================================
-
-    function renderProfile() {
-      return `
-        <div class="card">
-          <div class="row">
-            <div class="avatar">${state.avatar}</div>
-
-            <div class="grow">
-              <h1>${escapeHTML(state.name)}</h1>
-              <p class="muted">${escapeHTML(state.email)}</p>
-            </div>
-
-            <button class="btn secondary"
-              onclick="editProfile()">
-              تعديل
-            </button>
-          </div>
-
-          <div class="grid three">
-            <div class="card">
-              الكواكب
-              <h2>${state.planets.length}</h2>
-            </div>
-
-            <div class="card">
-              وقت التعلّم
-              <h2>${formatMinutes(state.totalMinutes)}</h2>
-            </div>
-
-            <div class="card">
-              الأصدقاء
-              <h2>${state.friends.length}</h2>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>الإعدادات ⚙️</h2>
-
-          <button class="btn secondary"
-            onclick="openSettings()">
-            إعدادات الحساب والمظهر
-          </button>
-
-          <p class="muted small">
-            يمكنك تغيير اسمك وصورتك والمظهر.
-          </p>
-
-          <button class="btn danger"
-            onclick="logout()">
-            تسجيل الخروج
-          </button>
-        </div>
-      `;
-    }
-
-    function editProfile() {
-      selectedAvatar = state.avatar;
-
-      const avatars = [
-        "👩🏻‍🚀", "🧑🏽‍🚀", "👨🏻‍🚀",
-        "👽", "🦊", "🐱", "🐼", "🦄", "🤖"
-      ];
-
-      showModal(`
-        <h2>تعديل الملف الشخصي</h2>
-
-        <div class="field">
-          <label for="profileName">الاسم</label>
-          <input id="profileName"
-            value="${escapeHTML(state.name)}">
-        </div>
-
-        <p>اختاري صورتك</p>
-
-        <div class="choicegrid">
-          ${avatars.map((avatar, index) => `
-            <button class="choice"
-              id="avatarChoice${index}"
-              onclick="chooseAvatar('${avatar}',${index})">
-              ${avatar}
-            </button>
-          `).join("")}
-        </div>
-
-        <button class="btn full"
-          style="margin-top:12px"
-          onclick="saveProfile()">
-          حفظ التغييرات
-        </button>
-      `);
-    }
-
-    function chooseAvatar(avatar, index) {
-      selectedAvatar = avatar;
-
-      document.querySelectorAll('[id^="avatarChoice"]').forEach(
-        (button) => {
-          button.style.borderColor = "var(--line)";
-        }
-      );
-
-      const button = $("avatarChoice" + index);
-
-      if (button) {
-        button.style.borderColor = "var(--purple)";
-      }
-    }
-
-    function saveProfile() {
-      const name = $("profileName").value.trim();
-
-      if (name) {
-        state.name = name;
-      }
-
-      state.avatar = selectedAvatar;
-
-      saveState();
-      closeModal();
-      goPage("profile");
-
-      showToast("تم تحديث الملف الشخصي.");
-    }
-
-    function openSettings() {
-      showModal(`
-        <h2>الإعدادات ⚙️</h2>
-
-        <div class="card">
-          <h3>الحساب</h3>
-
-          <p class="muted small">
-            ${escapeHTML(state.email)}
-          </p>
-
-          <button class="btn secondary full"
-            onclick="sendPasswordReset()">
-            إرسال رابط تغيير كلمة المرور
-          </button>
-        </div>
-
-        <div class="card">
-          <h3>المظهر</h3>
-
-          <div class="row">
-            <button class="btn secondary"
-              onclick="setTheme('dark')">
-              🌌 داكن
-            </button>
-
-            <button class="btn secondary"
-              onclick="setTheme('light')">
-              ☀️ فاتح
-            </button>
-          </div>
-        </div>
-
-        <button class="btn secondary full"
-          onclick="closeModal()">
-          إغلاق
-        </button>
-      `);
-    }
-
-    function setTheme(themeName) {
-      state.theme = themeName;
-
-      document.body.classList.toggle(
-        "light",
-        themeName === "light"
-      );
-
-      saveState();
-      openSettings();
-    }
-
-    async function sendPasswordReset() {
-      try {
-        const { error } =
-          await supabaseClient.auth.resetPasswordForEmail(
-            state.email,
-            {
-              redirectTo: window.location.href
-            }
-          );
-
-        if (error) {
-          throw error;
-        }
-
-        closeModal();
-
-        showToast(
-          "إذا كان البريد مسجلًا، فستصلك رسالة الاستعادة."
-        );
-
-      } catch (error) {
-        showToast(
-          error.message || "تعذّر إرسال رسالة الاستعادة."
-        );
-      }
-    }
-
-    // ========================================
-    // القسم التاسع عشر: متجر المجرة
-    // ========================================
-
-    const shopItems = [
-      ["👽", "قناع فضائي", 10],
-      ["🧑🏻‍🚀", "بدلة رائد فضاء", 20],
-      ["🌌", "خلفية مجرية", 25],
-      ["🪐", "كوكب لامع", 30],
-      ["🛸", "مركبة فضائية", 35],
-      ["✨", "هالة نجمية", 15]
-    ];
-
-    function openStore() {
-      showModal(`
-        <h2>متجر المجرة ✦</h2>
-
-        <p>
-          رصيدك الحالي:
-          <b>${state.coins} نقطة</b>
-        </p>
-
-        <div class="grid three">
-          ${shopItems.map((item, index) => `
-            <div class="card center">
-              <div style="font-size:2rem">${item[0]}</div>
-
-              <b>${item[1]}</b>
-
-              <p>${item[2]} ✦</p>
-
-              <button class="btn"
-                onclick="buyShopItem(${index})">
-                شراء
-              </button>
-            </div>
-          `).join("")}
-        </div>
-
-        <h3>العناصر التي تملكينها</h3>
-
-        <p>
-          ${state.unlockedItems.map(escapeHTML).join("، ") ||
-            "لم تشتري عناصر بعد."}
-        </p>
-      `);
-    }
-
-    function buyShopItem(index) {
-      const item = shopItems[index];
-
-      if (!item) {
-        return;
-      }
-
-      if (state.unlockedItems.includes(item[1])) {
-        showToast("هذا العنصر موجود لديك بالفعل.");
-        return;
-      }
-
-      if (state.coins < item[2]) {
-        showToast("رصيدك لا يكفي لشراء هذا العنصر.");
-        return;
-      }
-
-      state.coins -= item[2];
-      state.unlockedItems.push(item[1]);
-
-      saveState();
-      openStore();
-
-      showToast("تم شراء " + item[1] + " ✨");
-    }
-
-    // ========================================
-    // القسم العشرون: عرض الصفحات
-    // ========================================
-
-    function renderPage() {
-      if (currentPage === "home") {
-        $("main").innerHTML = renderHome();
-        return;
-      }
-
-      if (currentPage === "planets") {
-        $("main").innerHTML = renderPlanets();
-        return;
-      }
-
-      if (currentPage === "stats") {
-        $("main").innerHTML = renderStats();
-        return;
-      }
-
-      if (currentPage === "calendar") {
-        $("main").innerHTML = renderCalendar();
-        return;
-      }
-
-      if (currentPage === "messages") {
-        $("main").innerHTML = renderMessages();
-        return;
-      }
-
-      if (currentPage === "profile") {
-        $("main").innerHTML = renderProfile();
-        return;
-      }
-
-      if (currentPage === "planet") {
-        openPlanet(activePlanet);
-        return;
-      }
-
-      $("main").innerHTML = renderHome();
-    }
-
-    // ========================================
-    // القسم الحادي والعشرون: تشغيل التطبيق
-    // ========================================
-
-    async function initializeApp() {
-      try {
-        await bootApp();
-      } catch (error) {
-        console.error("Application startup error:", error);
-      }
-    }
-
-    initializeApp();
-  </script>
+  });
+}
+start();
+</script>
 </body>
 </html>
